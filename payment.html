@@ -1544,5 +1544,30 @@
     })();
   </script>
  
+ <script>
+  window.PageFlow = {
+    startPaymentThankYouFlow: function () {
+      const sec1 = document.querySelector("#payment-step-1");
+      const sec2 = document.querySelector("#payment-step-2");
+      const sec3 = document.querySelector("#payment-step-3");
+
+      if (sec1) sec1.style.display = "none";
+      if (sec2) sec2.style.display = "none";
+      if (sec3) sec3.style.display = "block";
+
+      // timer
+      let t = 20;
+      const timerEl = document.getElementById("pay-redirect-timer");
+      const interval = setInterval(() => {
+        t--;
+        if (timerEl) timerEl.textContent = t;
+        if (t <= 0) {
+          clearInterval(interval);
+          window.location.href = "index.html";
+        }
+      }, 1000);
+    }
+  };
+</script>
 </body>
 </html>
