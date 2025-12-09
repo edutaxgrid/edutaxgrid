@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Edutaxgrid | Smart Digital Notes & E-Books</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="Edutaxgrid – Digital notes, ebooks and study material for students. Instant access, exam-focused content, Gen-Z friendly."
+  />
+
+  <!-- Dark theme, modern Gen Z look (page-specific CSS) -->
+  <style>
+    :root {
+      --bg-main: #050509;
+      --bg-elevated: #0c0c12;
+      --bg-soft: #11111a;
+      --accent: #6a5cff;
+      --accent-soft: rgba(106, 92, 255, 0.15);
+      --accent-strong: #9f8fff;
+      --text-main: #f8f8ff;
+      --text-muted: #a0a0b8;
+      --danger: #ff4b6a;
+      --border-subtle: rgba(255, 255, 255, 0.06);
+      --radius-lg: 18px;
+      --radius-full: 999px;
+      --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.65);
+      --max-width: 1100px;
+      --nav-height: 64px;
+      --transition-fast: 0.18s ease-out;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      height: 100%;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #141428 0, #050509 55%);
+      color: var(--text-main);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+      border: none;
+      cursor: pointer;
+      background: none;
+    }
+
+    /* Layout */
+
+    .page-shell {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .page-main {
+      flex: 1;
+      padding: 0 16px 32px;
+    }
+
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    /* NAVBAR */
+
+    .eg-navbar {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(
+        to bottom,
+        rgba(5, 5, 9, 0.96),
+        rgba(5, 5, 9, 0.78),
+        transparent
+      );
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .eg-nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: var(--nav-height);
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    .eg-nav-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .eg-logo-wrap {
+      width: 32px;
+      height: 32px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: radial-gradient(circle at 30% 0, #ffffff 0, #6a5cff 40%, #050509 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
+    }
+
+    .eg-logo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .eg-brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .eg-brand-name {
+      font-weight: 600;
+      font-size: 1.02rem;
+      letter-spacing: 0.03em;
+    }
+
+    .eg-brand-tagline {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    .eg-nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .eg-cart-btn {
+      position: relative;
+      padding: 8px;
+      border-radius: 999px;
+      background: rgba(15, 15, 24, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background var(--transition-fast), transform var(--transition-fast),
+        border-color var(--transition-fast);
+    }
+
+    .eg-cart-btn:hover {
+      background: rgba(26, 26, 40, 0.95);
+      transform: translateY(-1px);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .eg-cart-icon {
+      width: 20px;
+      height: 20px;
+      display: inline-block;
+    }
+
+    .eg-cart-icon svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .eg-cart-count {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      min-width: 18px;
+      height: 18px;
+      padding: 0 4px;
+      border-radius: var(--radius-full);
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 600;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 0 1px rgba(5, 5, 9, 0.9);
+    }
+
+    .eg-burger-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(10, 10, 18, 0.95);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      transition: background var(--transition-fast), transform var(--transition-fast),
+        border-color var(--transition-fast);
+    }
+
+    .eg-burger-btn:hover {
+      background: rgba(20, 20, 32, 0.98);
+      transform: translateY(-1px);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .eg-burger-lines {
+      width: 18px;
+      height: 14px;
+      position: relative;
+    }
+
+    .eg-burger-lines span {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 2px;
+      border-radius: 999px;
+      background: #f5f5ff;
+      transition: transform 0.18s ease-out, opacity 0.18s ease-out;
+    }
+
+    .eg-burger-lines span:nth-child(1) {
+      top: 0;
+    }
+    .eg-burger-lines span:nth-child(2) {
+      top: 6px;
+      width: 70%;
+    }
+    .eg-burger-lines span:nth-child(3) {
+      top: 12px;
+    }
+
+    /* Burger menu panel */
+
+    .eg-burger-menu {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 16px 10px;
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.2s ease-out, opacity 0.18s ease-out;
+    }
+
+    .eg-burger-menu-inner {
+      background: rgba(7, 7, 14, 0.96);
+      border-radius: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 10px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .eg-nav-item {
+      width: 100%;
+      text-align: left;
+      padding: 8px 10px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      background: transparent;
+      transition: background var(--transition-fast), color var(--transition-fast),
+        transform var(--transition-fast);
+    }
+
+    .eg-nav-item span.label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .eg-nav-item span.badge {
+      font-size: 0.65rem;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-main);
+    }
+
+    .eg-nav-item:hover {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-main);
+      transform: translateY(-0.5px);
+    }
+
+    @media (min-width: 780px) {
+      .eg-burger-menu-inner {
+        flex-direction: row;
+        justify-content: flex-end;
+        gap: 8px;
+      }
+      .eg-nav-item {
+        width: auto;
+        font-size: 0.85rem;
+      }
+    }
+
+    /* HERO */
+
+    .hero {
+      padding-top: 22px;
+      padding-bottom: 32px;
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 22px;
+    }
+
+    @media (min-width: 880px) {
+      .hero-grid {
+        grid-template-columns: minmax(0, 3fr) minmax(0, 2.6fr);
+        align-items: center;
+        gap: 32px;
+      }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .hero-badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #3cf584;
+      box-shadow: 0 0 0 4px rgba(60, 245, 132, 0.18);
+    }
+
+    .hero-title {
+      font-size: 2rem;
+      line-height: 1.2;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 10px;
+    }
+
+    @media (min-width: 880px) {
+      .hero-title {
+        font-size: 2.6rem;
+      }
+    }
+
+    .hero-title span.gradient {
+      background: linear-gradient(120deg, #ffffff, #b1a7ff, #6a5cff);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 420px;
+      margin-bottom: 18px;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .eg-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 0.88rem;
+      padding: 9px 16px;
+      border-radius: var(--radius-full);
+      border: 1px solid transparent;
+      transition: background var(--transition-fast), transform var(--transition-fast),
+        box-shadow var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+      white-space: nowrap;
+    }
+
+    .eg-btn-primary {
+      background: linear-gradient(135deg, var(--accent), #906dff);
+      color: #fff;
+      box-shadow: 0 14px 40px rgba(106, 92, 255, 0.5);
+    }
+
+    .eg-btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 45px rgba(106, 92, 255, 0.65);
+    }
+
+    .eg-btn-ghost {
+      background: transparent;
+      color: var(--text-muted);
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+
+    .eg-btn-ghost:hover {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-main);
+    }
+
+    .eg-btn-sm {
+      padding: 7px 12px;
+      font-size: 0.8rem;
+    }
+
+    .hero-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 14px;
+      align-items: center;
+    }
+
+    .hero-kpi {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-kpi span.num {
+      font-weight: 600;
+      color: var(--accent-strong);
+    }
+
+    .hero-card {
+      background: radial-gradient(circle at top left, #201f35 0, #050509 52%);
+      border-radius: 24px;
+      padding: 16px 16px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 10% 0, rgba(174, 157, 255, 0.22), transparent 55%);
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .hero-card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .hero-card-title {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .hero-chip-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .hero-chip {
+      font-size: 0.7rem;
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(5, 5, 9, 0.7);
+      color: var(--text-muted);
+    }
+
+    .hero-card-highlight {
+      font-size: 0.76rem;
+      color: var(--accent-strong);
+      margin-bottom: 10px;
+    }
+
+    .hero-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.73rem;
+      color: var(--text-muted);
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: rgba(5, 5, 9, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    /* SECTION WRAPPERS */
+
+    .section {
+      margin-bottom: 28px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .section-sub {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* HOME SEARCH & RECOMMENDED */
+
+    .home-search-box {
+      background: rgba(7, 7, 13, 0.96);
+      border-radius: var(--radius-lg);
+      padding: 14px 12px;
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
+      margin-bottom: 10px;
+    }
+
+    .home-search-form {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .home-search-input-wrap {
+      position: relative;
+      flex: 1;
+    }
+
+    .home-search-input-wrap svg {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 16px;
+      height: 16px;
+      opacity: 0.7;
+    }
+
+    .home-search-input {
+      width: 100%;
+      padding: 8px 10px 8px 32px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      background: rgba(8, 8, 14, 0.94);
+      color: var(--text-main);
+      font-size: 0.85rem;
+      outline: none;
+      transition: border-color 0.18s ease-out, background 0.18s ease-out,
+        box-shadow 0.18s ease-out;
+    }
+
+    .home-search-input::placeholder {
+      color: rgba(160, 160, 184, 0.6);
+    }
+
+    .home-search-input:focus {
+      border-color: rgba(154, 139, 255, 0.8);
+      background: rgba(8, 8, 16, 0.98);
+      box-shadow: 0 0 0 1px rgba(154, 139, 255, 0.8);
+    }
+
+    .home-search-cta {
+      font-size: 0.76rem;
+    }
+
+    /* PRODUCT CARDS (for recommended) */
+
+    .eg-product-grid {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+
+    .eg-product-card {
+      background: var(--bg-elevated);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      padding: 9px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.6);
+    }
+
+    .eg-product-card--compact {
+      padding: 9px;
+    }
+
+    .eg-product-thumb {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #181821;
+      aspect-ratio: 4 / 3;
+    }
+
+    .eg-product-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transform: scale(1.02);
+      transition: transform 0.25s ease-out, opacity 0.18s ease-out;
+    }
+
+    .eg-badge-discount {
+      position: absolute;
+      left: 8px;
+      top: 8px;
+      padding: 2px 8px;
+      font-size: 0.7rem;
+      border-radius: 999px;
+      background: rgba(255, 80, 132, 0.15);
+      color: #ff8ba3;
+      border: 1px solid rgba(255, 80, 132, 0.4);
+      backdrop-filter: blur(6px);
+    }
+
+    .eg-product-card:hover .eg-product-thumb img {
+      transform: scale(1.05);
+      opacity: 0.96;
+    }
+
+    .eg-product-body {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .eg-product-title {
+      font-size: 0.88rem;
+      font-weight: 500;
+      line-height: 1.25;
+    }
+
+    .eg-product-meta {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .eg-price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      font-size: 0.9rem;
+    }
+
+    .eg-price-now {
+      font-weight: 600;
+      color: var(--accent-strong);
+    }
+
+    .eg-price-old {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-decoration: line-through;
+    }
+
+    .eg-product-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .eg-empty-state {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      padding: 12px 10px;
+      border-radius: 12px;
+      background: rgba(9, 9, 16, 0.9);
+      border: 1px dashed rgba(255, 255, 255, 0.08);
+    }
+
+    /* FAQ */
+
+    .faq-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    @media (min-width: 780px) {
+      .faq-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .faq-item {
+      background: rgba(6, 6, 12, 0.96);
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 10px 11px;
+    }
+
+    .faq-q {
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .faq-a {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    /* FEEDBACK */
+
+    .feedback-card {
+      background: rgba(6, 6, 12, 0.96);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 14px 12px 12px;
+      box-shadow: 0 16px 38px rgba(0, 0, 0, 0.75);
+    }
+
+    .feedback-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    @media (min-width: 880px) {
+      .feedback-grid {
+        grid-template-columns: minmax(0, 3fr) minmax(0, 2.3fr);
+      }
+    }
+
+    .feedback-form {
+      display: grid;
+      gap: 8px;
+    }
+
+    .eg-input,
+    .eg-textarea {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(5, 5, 10, 0.95);
+      color: var(--text-main);
+      font-size: 0.8rem;
+      outline: none;
+      transition: border-color 0.18s ease-out, box-shadow 0.18s ease-out,
+        background 0.18s ease-out;
+    }
+
+    .eg-input::placeholder,
+    .eg-textarea::placeholder {
+      color: rgba(160, 160, 184, 0.65);
+    }
+
+    .eg-input:focus,
+    .eg-textarea:focus {
+      border-color: rgba(154, 139, 255, 0.9);
+      box-shadow: 0 0 0 1px rgba(154, 139, 255, 0.9);
+      background: rgba(6, 6, 14, 0.98);
+    }
+
+    .eg-textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    .feedback-side-text {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .feedback-mini-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 0.72rem;
+      margin-bottom: 6px;
+    }
+
+    .feedback-status {
+      font-size: 0.75rem;
+      margin-top: 4px;
+      color: var(--text-muted);
+    }
+
+    .feedback-status[data-status-type="success"] {
+      color: #5cf59f;
+    }
+
+    .feedback-status[data-status-type="error"] {
+      color: var(--danger);
+    }
+
+    /* FOOTER */
+
+    .footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      padding: 12px 16px 18px;
+      margin-top: 10px;
+      background: rgba(3, 3, 8, 0.98);
+    }
+
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    @media (min-width: 720px) {
+      .footer-inner {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .footer-link {
+      cursor: pointer;
+      opacity: 0.83;
+      transition: opacity 0.15s ease-out, color 0.15s ease-out;
+    }
+
+    .footer-link:hover {
+      opacity: 1;
+      color: var(--accent-strong);
+    }
+
+    .footer-brand {
+      font-weight: 500;
+      color: rgba(235, 235, 255, 0.9);
+    }
+
+    .footer-copy {
+      opacity: 0.7;
+    }
+
+    .footer-badge {
+      font-size: 0.72rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(106, 92, 255, 0.12);
+      border: 1px solid rgba(106, 92, 255, 0.4);
+      color: var(--accent-strong);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page-shell">
+    <!-- NAVBAR -->
+    <header class="eg-navbar">
+      <div class="eg-nav-inner">
+        <div class="eg-nav-left">
+          <a href="index.html" class="eg-logo-wrap" aria-label="Edutaxgrid home">
+            <!-- Replace src with your actual logo path -->
+            <img src="assets/images/logo.png" alt="Edutaxgrid logo" />
+          </a>
+          <div class="eg-brand-text">
+            <div class="eg-brand-name">Edutaxgrid</div>
+            <div class="eg-brand-tagline">Digital notes for serious students</div>
+          </div>
+        </div>
+
+        <div class="eg-nav-right">
+          <button
+            type="button"
+            class="eg-cart-btn"
+            aria-label="Open cart"
+            data-button
+            data-nav-link="cart"
+          >
+            <span class="eg-cart-icon">
+              <!-- simple cart icon -->
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M6 6h15l-1.2 7.2a2 2 0 0 1-2 1.8H9.1a2 2 0 0 1-2-1.5L5 3.5H3"
+                  stroke="#f7f7ff"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <circle cx="10" cy="19.5" r="1.3" fill="#f7f7ff" />
+                <circle cx="17" cy="19.5" r="1.3" fill="#f7f7ff" />
+              </svg>
+            </span>
+            <span class="eg-cart-count" data-cart-count>0</span>
+          </button>
+
+          <button
+            type="button"
+            class="eg-burger-btn"
+            aria-label="Open navigation"
+            data-burger-toggle
+          >
+            <div class="eg-burger-lines">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <div class="eg-burger-menu" data-burger-menu data-open="false">
+        <div class="eg-burger-menu-inner">
+          <!-- Sign in / Profile (auth switches this text + target) -->
+          <button
+            type="button"
+            class="eg-nav-item"
+            data-auth-nav-switch
+            data-nav-link="signin"
+          >
+            <span class="label">Sign in</span>
+            <span class="badge">Google</span>
+          </button>
+
+          <button type="button" class="eg-nav-item" data-nav-link="home">
+            <span class="label">Home</span>
+          </button>
+
+          <button type="button" class="eg-nav-item" data-nav-link="store">
+            <span class="label">Store</span>
+          </button>
+
+          <button type="button" class="eg-nav-item" data-nav-link="faq">
+            <span class="label">FAQ</span>
+          </button>
+
+          <button type="button" class="eg-nav-item" data-nav-link="feedback">
+            <span class="label">Feedback</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="page-main">
+      <div class="container">
+        <!-- HERO -->
+        <section class="hero">
+          <div class="hero-grid">
+            <div>
+              <div class="hero-badge">
+                <span class="hero-badge-dot"></span>
+                Instant access • Board & entrance ready
+              </div>
+
+              <h1 class="hero-title">
+                Digital notes that feel like
+                <span class="gradient">topper’s notebook</span>.
+              </h1>
+
+              <p class="hero-subtitle">
+                Get exam-focused PDFs, ebooks and revision notes in one place.
+                No shipping, no drama — just download and start studying.
+              </p>
+
+              <div class="hero-cta-row">
+                <button
+                  type="button"
+                  class="eg-btn eg-btn-primary"
+                  data-go-to-page="store"
+                >
+                  Browse all notes
+                  <span>↗</span>
+                </button>
+
+                <button
+                  type="button"
+                  class="eg-btn eg-btn-ghost eg-btn-sm"
+                  data-scroll-target="faq"
+                >
+                  How does it work?
+                </button>
+              </div>
+
+              <div class="hero-meta">
+                <span class="hero-kpi">
+                  <span class="num">100% digital</span>
+                  • zero shipping
+                </span>
+                <span class="hero-kpi">
+                  <span class="num">₹-friendly</span>
+                  • student pricing
+                </span>
+              </div>
+            </div>
+
+            <div>
+              <div class="hero-card">
+                <div class="hero-card-inner">
+                  <div class="hero-card-header">
+                    <div class="hero-card-title">One place for all your PDFs</div>
+                    <span class="footer-badge">Gen Z ready</span>
+                  </div>
+
+                  <div class="hero-chip-row">
+                    <span class="hero-chip">CBSE • ICSE • State boards</span>
+                    <span class="hero-chip">NEET • JEE</span>
+                    <span class="hero-chip">Notes, ebooks, planners</span>
+                  </div>
+
+                  <p class="hero-card-highlight">
+                    Add to cart, pay via UPI, and receive your study material
+                    directly in your inbox within 36 hours.
+                  </p>
+
+                  <div class="hero-card-footer">
+                    <span>
+                      Curated for students who want
+                      <strong>clarity</strong>, not confusion.
+                    </span>
+                    <span class="hero-pill">
+                      <span
+                        style="width:8px;height:8px;border-radius:999px;background:#3cf584;"
+                      ></span>
+                      Online 24×7
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- MINI STORE SECTION -->
+        <section class="section" aria-labelledby="mini-store-heading">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title" id="mini-store-heading">
+                Quick search & picks
+              </h2>
+              <p class="section-sub">
+                Find notes faster or check some handpicked recommendations.
+              </p>
+            </div>
+            <button
+              type="button"
+              class="eg-btn eg-btn-ghost eg-btn-sm"
+              data-go-to-page="store"
+            >
+              Open full store
+            </button>
+          </div>
+
+          <div class="home-search-box">
+            <form
+              id="home-search-form"
+              class="home-search-form"
+              autocomplete="off"
+            >
+              <div class="home-search-input-wrap">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M15.5 15.5L20 20"
+                    stroke="#a0a0b8"
+                    stroke-width="1.4"
+                    stroke-linecap="round"
+                  />
+                  <circle
+                    cx="11"
+                    cy="11"
+                    r="5.5"
+                    stroke="#a0a0b8"
+                    stroke-width="1.4"
+                    fill="none"
+                  />
+                </svg>
+                <input
+                  id="home-search-input"
+                  class="home-search-input"
+                  type="text"
+                  placeholder="Search by class, subject, exam…"
+                  aria-label="Search notes"
+                />
+              </div>
+              <button
+                type="submit"
+                class="eg-btn eg-btn-primary home-search-cta"
+              >
+                Search store
+              </button>
+            </form>
+          </div>
+
+          <div
+            id="home-recommended"
+            class="eg-product-grid"
+            aria-label="Recommended notes"
+          >
+            <!-- Filled by script.js using ProductStore.getRecommendedProducts() -->
+          </div>
+        </section>
+
+        <!-- FAQ SECTION -->
+        <section class="section" id="faq" aria-labelledby="faq-heading">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title" id="faq-heading">FAQ</h2>
+              <p class="section-sub">
+                Few quick answers before you grab your notes.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-grid">
+            <article class="faq-item">
+              <h3 class="faq-q">How will I receive my notes or ebook?</h3>
+              <p class="faq-a">
+                After you pay via UPI and submit the payment form, we’ll verify
+                your details and send the PDF to your email address within
+                <strong>36 hours</strong>.
+              </p>
+            </article>
+
+            <article class="faq-item">
+              <h3 class="faq-q">Are these physical books?</h3>
+              <p class="faq-a">
+                No. Edutaxgrid only provides <strong>digital products</strong>
+                like PDFs, ebooks and digital notes. You can view them on phone,
+                tablet or laptop.
+              </p>
+            </article>
+
+            <article class="faq-item">
+              <h3 class="faq-q">Can I get a refund?</h3>
+              <p class="faq-a">
+                Since these are instantly usable digital files, we
+                <strong>do not provide refunds</strong>. Please read the
+                description carefully before placing your order.
+              </p>
+            </article>
+
+            <article class="faq-item">
+              <h3 class="faq-q">Is my UPI payment safe?</h3>
+              <p class="faq-a">
+                You pay directly via UPI app (like GPay, PhonePe, Paytm). We
+                never see your card details. We only store the basic order info
+                you submit for delivering your notes.
+              </p>
+            </article>
+          </div>
+        </section>
+        
+          <!-- FEEDBACK SECTION -->
+        <section class="section" id="feedback" aria-labelledby="feedback-heading">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title" id="feedback-heading">
+                Feedback & queries
+              </h2>
+              <p class="section-sub">
+                Confused about any product or stuck somewhere? Tell us.
+              </p>
+            </div>
+          </div>
+
+          <div class="feedback-card">
+            <div class="feedback-grid">
+              <div>
+                <form
+                  class="feedback-form"
+                  data-form="feedback"
+                  autocomplete="off"
+                >
+                  <input
+                    class="eg-input"
+                    type="text"
+                    name="name"
+                    placeholder="Your name"
+                    required
+                  />
+                  <input
+                    class="eg-input"
+                    type="email"
+                    name="email"
+                    placeholder="Your email"
+                    required
+                  />
+                  <textarea
+                    class="eg-textarea"
+                    name="message"
+                    placeholder="Write your feedback or doubt here…"
+                    required
+                  ></textarea>
+
+                  <!-- hCaptcha widget placeholder -->
+                  <!-- Replace data-sitekey with your real hCaptcha site key -->
+                  <div class="h-captcha" data-sitekey="YOUR_HCAPTCHA_SITE_KEY"></div>
+
+                  <button type="submit" class="eg-btn eg-btn-primary">
+                    Send feedback
+                  </button>
+                  <p class="feedback-status" data-form-status>
+                    We usually respond within 36 hours.
+                  </p>
+                </form>
+              </div>
+
+              <div>
+                <div class="feedback-side-text">
+                  <div class="feedback-mini-badge">
+                    <span
+                      style="width:8px;height:8px;border-radius:999px;background:#3cf584;"
+                    ></span>
+                    Student-first support
+                  </div>
+                  <p>
+                    Not sure which notes to pick? Have a specific chapter you
+                    want us to cover next? Or found any issue in a file?
+                  </p>
+                  <p style="margin-top:6px;">
+                    Just drop a message using this form. We’ll read every single
+                    feedback and improve Edutaxgrid step by step — with you.
+                  </p>
+                  <p style="margin-top:8px;font-size:0.76rem;color:var(--text-muted);">
+                    For payment or order-related issues, please mention your
+                    <strong>email</strong> and <strong>transaction ID</strong>.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-inner">
+        <div>
+          <div class="footer-brand">Edutaxgrid</div>
+          <div class="footer-copy">
+            © <span id="footer-year"></span> • Built for students, not for chaos.
+          </div>
+        </div>
+        <div class="footer-links">
+          <button
+            type="button"
+            class="footer-link"
+            data-nav-link="home"
+          >
+            Home
+          </button>
+          <button
+            type="button"
+            class="footer-link"
+            data-nav-link="store"
+          >
+            Store
+          </button>
+          <button
+            type="button"
+            class="footer-link"
+            data-nav-link="faq"
+          >
+            FAQ
+          </button>
+          <a href="policies.html" class="footer-link">
+            Policies & terms
+          </a>
+          <span class="footer-badge">100% digital only</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Firebase SDKs (add only after you create Firebase project & config) -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-auth-compat.js"></script>
+
+  <!-- Your scripts -->
+  <script src="assets/js/product.js"></script>
+  <script src="assets/js/script.js"></script>
+  <script src="assets/js/authentication.js"></script>
+
+  <script>
+    // Set current year in footer
+    document.getElementById("footer-year").textContent =
+      new Date().getFullYear();
+  </script>
+</body>
+</html>

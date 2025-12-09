@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sign in | Edutaxgrid</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="Sign in with Google to save your orders and receive digital notes from Edutaxgrid."
+  />
+
+  <style>
+    :root {
+      --bg-main: #050509;
+      --bg-elevated: #0b0b12;
+      --accent: #6a5cff;
+      --accent-strong: #b5a7ff;
+      --text-main: #f8f8ff;
+      --text-muted: #a0a0b8;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --radius-lg: 20px;
+      --radius-full: 999px;
+      --shadow-soft: 0 20px 50px rgba(0, 0, 0, 0.7);
+      --nav-height: 64px;
+      --max-width: 900px;
+      --transition-fast: 0.18s ease-out;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #17172c 0, #050509 55%);
+      color: var(--text-main);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+      border: none;
+      cursor: pointer;
+      background: none;
+    }
+
+    .page-shell {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .page-main {
+      flex: 1;
+      padding: 0 16px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    /* NAVBAR (same as index/store/product) */
+
+    .eg-navbar {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(
+        to bottom,
+        rgba(5, 5, 9, 0.96),
+        rgba(5, 5, 9, 0.8),
+        transparent
+      );
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .eg-nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: var(--nav-height);
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    .eg-nav-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .eg-logo-wrap {
+      width: 32px;
+      height: 32px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: radial-gradient(circle at 30% 0, #ffffff 0, #6a5cff 40%, #050509 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
+    }
+
+    .eg-logo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .eg-brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .eg-brand-name {
+      font-weight: 600;
+      font-size: 1.02rem;
+      letter-spacing: 0.03em;
+    }
+
+    .eg-brand-tagline {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    .eg-nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .eg-cart-btn {
+      position: relative;
+      padding: 8px;
+      border-radius: var(--radius-full);
+      background: rgba(15, 15, 24, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background var(--transition-fast), transform var(--transition-fast),
+        border-color var(--transition-fast);
+    }
+
+    .eg-cart-btn:hover {
+      background: rgba(26, 26, 40, 0.95);
+      transform: translateY(-1px);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .eg-cart-icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    .eg-cart-count {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      min-width: 18px;
+      height: 18px;
+      padding: 0 4px;
+      border-radius: var(--radius-full);
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 600;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 0 1px rgba(5, 5, 9, 0.9);
+    }
+
+    .eg-burger-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(10, 10, 18, 0.95);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      transition: background var(--transition-fast), transform var(--transition-fast),
+        border-color var(--transition-fast);
+    }
+
+    .eg-burger-btn:hover {
+      background: rgba(20, 20, 32, 0.98);
+      transform: translateY(-1px);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .eg-burger-lines {
+      width: 18px;
+      height: 14px;
+      position: relative;
+    }
+
+    .eg-burger-lines span {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 2px;
+      border-radius: 999px;
+      background: #f7f7ff;
+      transition: transform 0.18s ease-out, opacity 0.18s ease-out;
+    }
+
+    .eg-burger-lines span:nth-child(1) {
+      top: 0;
+    }
+    .eg-burger-lines span:nth-child(2) {
+      top: 6px;
+      width: 70%;
+    }
+    .eg-burger-lines span:nth-child(3) {
+      top: 12px;
+    }
+
+    .eg-burger-menu {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 16px 10px;
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.2s ease-out, opacity 0.18s ease-out;
+    }
+
+    .eg-burger-menu-inner {
+      background: rgba(7, 7, 14, 0.96);
+      border-radius: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 10px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .eg-nav-item {
+      width: 100%;
+      text-align: left;
+      padding: 8px 10px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      background: transparent;
+      transition: background var(--transition-fast), color var(--transition-fast),
+        transform var(--transition-fast);
+    }
+
+    .eg-nav-item span.label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .eg-nav-item span.badge {
+      font-size: 0.65rem;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-main);
+    }
+
+    .eg-nav-item:hover {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-main);
+      transform: translateY(-0.5px);
+    }
+
+    @media (min-width: 780px) {
+      .eg-burger-menu-inner {
+        flex-direction: row;
+        justify-content: flex-end;
+        gap: 8px;
+      }
+      .eg-nav-item {
+        width: auto;
+        font-size: 0.85rem;
+      }
+    }
+
+    /* BUTTONS */
+
+    .eg-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      padding: 9px 16px;
+      border-radius: var(--radius-full);
+      border: 1px solid transparent;
+      transition: background var(--transition-fast), transform var(--transition-fast),
+        box-shadow var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+      white-space: nowrap;
+    }
+
+    .eg-btn-primary {
+      background: #ffffff;
+      color: #111322;
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.7);
+    }
+
+    .eg-btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.85);
+    }
+
+    .eg-btn-ghost {
+      background: transparent;
+      color: var(--text-muted);
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+
+    .eg-btn-ghost:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-main);
+    }
+
+    .eg-btn-sm {
+      padding: 6px 12px;
+      font-size: 0.78rem;
+    }
+
+    /* SIGNIN CARD */
+
+    .signin-card {
+      background: rgba(7, 7, 14, 0.97);
+      border-radius: 22px;
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-soft);
+      padding: 22px 18px 18px;
+      max-width: 520px;
+      margin: 40px auto 0;
+      text-align: center;
+    }
+
+    .signin-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .signin-sub {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .signin-sub strong {
+      color: var(--accent-strong);
+      font-weight: 600;
+    }
+
+    .signin-note {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      margin-top: 8px;
+      line-height: 1.6;
+    }
+
+    .signin-note span.dot {
+      opacity: 0.6;
+      padding: 0 6px;
+    }
+
+    .signin-tag-row {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    .signin-tag {
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    .signin-actions {
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .google-icon {
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      background: conic-gradient(
+        from 180deg at 50% 50%,
+        #4285f4,
+        #34a853,
+        #fbbc05,
+        #ea4335,
+        #4285f4
+      );
+    }
+
+    .signin-status {
+      margin-top: 6px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .signin-status[data-status="signed-in"] {
+      color: var(--accent-strong);
+    }
+
+    .footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      padding: 12px 16px 18px;
+      background: rgba(3, 3, 8, 0.98);
+    }
+
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    @media (min-width: 720px) {
+      .footer-inner {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .footer-link {
+      cursor: pointer;
+      opacity: 0.83;
+      transition: opacity 0.15s ease-out, color 0.15s ease-out;
+    }
+
+    .footer-link:hover {
+      opacity: 1;
+      color: var(--accent-strong);
+    }
+
+    .footer-brand {
+      font-weight: 500;
+      color: rgba(235, 235, 255, 0.9);
+    }
+
+    .footer-copy {
+      opacity: 0.7;
+    }
+
+    .footer-badge {
+      font-size: 0.72rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(106, 92, 255, 0.12);
+      border: 1px solid rgba(106, 92, 255, 0.4);
+      color: var(--accent-strong);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page-shell">
+    <!-- NAVBAR -->
+    <header class="eg-navbar">
+      <div class="eg-nav-inner">
+        <div class="eg-nav-left">
+          <a href="index.html" class="eg-logo-wrap" aria-label="Edutaxgrid home">
+            <img src="assets/images/logo.png" alt="Edutaxgrid logo" />
+          </a>
+          <div class="eg-brand-text">
+            <div class="eg-brand-name">Edutaxgrid</div>
+            <div class="eg-brand-tagline">Sign in to save your notes</div>
+          </div>
+        </div>
+
+        <div class="eg-nav-right">
+          <button
+            type="button"
+            class="eg-cart-btn"
+            aria-label="Open cart"
+            data-button
+            data-nav-link="cart"
+          >
+            <span class="eg-cart-icon">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M6 6h15l-1.2 7.2a2 2 0 0 1-2 1.8H9.1a2 2 0 0 1-2-1.5L5 3.5H3"
+                  stroke="#f7f7ff"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <circle cx="10" cy="19.5" r="1.3" fill="#f7f7ff" />
+                <circle cx="17" cy="19.5" r="1.3" fill="#f7f7ff" />
+              </svg>
+            </span>
+            <span class="eg-cart-count" data-cart-count>0</span>
+          </button>
+
+          <button
+            type="button"
+            class="eg-burger-btn"
+            aria-label="Open navigation"
+            data-burger-toggle
+          >
+            <div class="eg-burger-lines">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <div class="eg-burger-menu" data-burger-menu data-open="false">
+        <div class="eg-burger-menu-inner">
+          <button
+            type="button"
+            class="eg-nav-item"
+            data-auth-nav-switch
+            data-nav-link="signin"
+          >
+            <span class="label">Sign in</span>
+            <span class="badge">Google</span>
+          </button>
+
+          <button type="button" class="eg-nav-item" data-nav-link="home">
+            <span class="label">Home</span>
+          </button>
+
+          <button type="button" class="eg-nav-item" data-nav-link="store">
+            <span class="label">Store</span>
+          </button>
+
+          <button type="button" class="eg-nav-item" data-nav-link="cart">
+            <span class="label">Cart</span>
+          </button>
+
+          <button type="button" class="eg-nav-item" data-nav-link="faq">
+            <span class="label">FAQ</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN -->
+    <main class="page-main">
+      <div class="container">
+        <section class="signin-card">
+          <!-- When signed out -->
+          <div data-auth-visible="signed-out">
+            <h1 class="signin-title">Sign in with Google</h1>
+            <p class="signin-sub">
+              Sign in to <strong>attach your notes and payments</strong> to your email so
+              we can send your digital PDFs safely.
+            </p>
+
+            <div class="signin-actions">
+              <button
+                type="button"
+                class="eg-btn eg-btn-primary"
+                data-auth-google
+              >
+                <span class="google-icon"></span>
+                <span>Continue with Google</span>
+              </button>
+
+              <button
+                type="button"
+                class="eg-btn eg-btn-ghost eg-btn-sm"
+                data-nav-link="home"
+              >
+                ← Back to home
+              </button>
+            </div>
+
+            <p class="signin-note">
+              We only use your <strong>name</strong> and <strong>email address</strong> to
+              <br />
+              send your purchased notes and help with support.
+              <br />
+              <span class="dot">•</span> No spam <span class="dot">•</span> No unnecessary access
+            </p>
+
+            <div class="signin-tag-row">
+              <span class="signin-tag">Track your orders</span>
+              <span class="signin-tag">Faster support</span>
+              <span class="signin-tag">Notes delivered on email</span>
+            </div>
+          </div>
+
+          <!-- When already signed in -->
+          <div data-auth-visible="signed-in" style="display:none;">
+            <h1 class="signin-title">You're already signed in ✨</h1>
+            <p class="signin-sub">
+              Your Google account is connected. You can continue shopping and finish your
+              payment — we’ll use this email for delivery.
+            </p>
+
+            <div class="signin-actions">
+              <button
+                type="button"
+                class="eg-btn eg-btn-primary eg-btn-sm"
+                data-nav-link="store"
+              >
+                Go to store
+              </button>
+              <button
+                type="button"
+                class="eg-btn eg-btn-ghost eg-btn-sm"
+                data-nav-link="profile"
+              >
+                Open profile
+              </button>
+            </div>
+
+            <p class="signin-status" data-status="signed-in">
+              Signed in as <span data-auth-user-email>your-email@example.com</span>
+            </p>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-inner">
+        <div>
+          <div class="footer-brand">Edutaxgrid</div>
+          <div class="footer-copy">
+            © <span id="footer-year"></span> • Sign in
+          </div>
+        </div>
+        <div class="footer-links">
+          <button type="button" class="footer-link" data-nav-link="home">
+            Home
+          </button>
+          <button type="button" class="footer-link" data-nav-link="store">
+            Store
+          </button>
+          <a href="policies.html" class="footer-link">Policies & terms</a>
+          <span class="footer-badge">Google sign-in only</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-auth-compat.js"></script>
+
+  <!-- Your JS -->
+  <script src="assets/js/product.js"></script>
+  <script src="assets/js/script.js"></script>
+  <script src="assets/js/authentication.js"></script>
+
+  <script>
+    document.getElementById("footer-year").textContent =
+      new Date().getFullYear();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cart | Edutaxgrid</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    :root {
+      --bg-main: #050509;
+      --bg-elevated: #0b0b12;
+      --bg-soft: #10101a;
+      --accent: #6a5cff;
+      --accent-strong: #b5a7ff;
+      --accent-soft: rgba(106, 92, 255, 0.18);
+      --text-main: #f8f8ff;
+      --text-muted: #a0a0b8;
+      --danger: #ff738f;
+      --border-subtle: rgba(255, 255, 255, 0.07);
+      --radius-lg: 18px;
+      --radius-full: 999px;
+      --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.65);
+      --nav-height: 64px;
+      --max-width: 1120px;
+      --transition-fast: 0.18s ease-out;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #17172c 0, #050509 55%);
+      color: var(--text-main);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+      border: none;
+      cursor: pointer;
+      background: none;
+    }
+
+    .page-shell {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .page-main {
+      flex: 1;
+      padding: 0 16px 28px;
+    }
+
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    /* NAVBAR */
+
+    .eg-navbar {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(
+        to bottom,
+        rgba(5, 5, 9, 0.96),
+        rgba(5, 5, 9, 0.8),
+        transparent
+      );
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .eg-nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: var(--nav-height);
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    .eg-nav-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .eg-logo-wrap {
+      width: 32px;
+      height: 32px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: radial-gradient(circle at 30% 0, #ffffff 0, #6a5cff 40%, #050509 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
+    }
+
+    .eg-logo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .eg-brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .eg-brand-name {
+      font-weight: 600;
+      font-size: 1.02rem;
+      letter-spacing: 0.03em;
+    }
+
+    .eg-brand-tagline {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    .eg-nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .eg-cart-btn {
+      position: relative;
+      padding: 8px;
+      border-radius: var(--radius-full);
+      background: rgba(15, 15, 24, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background var(--transition-fast), transform var(--transition-fast),
+        border-color var(--transition-fast);
+    }
+
+    .eg-cart-btn:hover {
+      background: rgba(26, 26, 40, 0.95);
+      transform: translateY(-1px);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .eg-cart-icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    .eg-cart-icon svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .eg-cart-count {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      min-width: 18px;
+      height: 18px;
+      padding: 0 4px;
+      border-radius: var(--radius-full);
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 600;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 0 1px rgba(5, 5, 9, 0.9);
+    }
+
+    .eg-burger-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(10, 10, 18, 0.95);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      transition: background var(--transition-fast), transform var(--transition-fast),
+        border-color var(--transition-fast);
+    }
+
+    .eg-burger-btn:hover {
+      background: rgba(20, 20, 32, 0.98);
+      transform: translateY(-1px);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .eg-burger-lines {
+      width: 18px;
+      height: 14px;
+      position: relative;
+    }
+
+    .eg-burger-lines span {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 2px;
+      border-radius: 999px;
+      background: #f7f7ff;
+      transition: transform 0.18s ease-out, opacity 0.18s ease-out;
+    }
+
+    .eg-burger-lines span:nth-child(1) {
+      top: 0;
+    }
+    .eg-burger-lines span:nth-child(2) {
+      top: 6px;
+      width: 70%;
+    }
+    .eg-burger-lines span:nth-child(3) {
+      top: 12px;
+    }
+
+    .eg-burger-menu {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 16px 10px;
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.2s ease-out, opacity 0.18s ease-out;
+    }
+
+    .eg-burger-menu-inner {
+      background: rgba(7, 7, 14, 0.96);
+      border-radius: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 10px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .eg-nav-item {
+      width: 100%;
+      text-align: left;
+      padding: 8px 10px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      background: transparent;
+      transition: background var(--transition-fast), color var(--transition-fast),
+        transform var(--transition-fast);
+    }
+
+    .eg-nav-item span.label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .eg-nav-item span.badge {
+      font-size: 0.65rem;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-main);
+    }
+
+    .eg-nav-item:hover {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-main);
+      transform: translateY(-0.5px);
+    }
+
+    @media (min-width: 780px) {
+      .eg-burger-menu-inner {
+        flex-direction: row;
+        justify-content: flex-end;
+        gap: 8px;
+      }
+      .eg-nav-item {
+        width: auto;
+        font-size: 0.85rem;
+      }
+    }
+
+    /* BUTTONS */
+
+    .eg-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      padding: 9px 16px;
+      border-radius: var(--radius-full);
+      border: 1px solid transparent;
+      transition: background var(--transition-fast), transform var(--transition-fast),
+        box-shadow var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+      white-space: nowrap;
+    }
+
+    .eg-btn-primary {
+      background: linear-gradient(135deg, var(--accent), #8e7bff);
+      color: #fff;
+      box-shadow: 0 14px 40px rgba(106, 92, 255, 0.5);
+    }
+
+    .eg-btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 45px rgba(106, 92, 255, 0.65);
+    }
+
+    .eg-btn-ghost {
+      background: transparent;
+      color: var(--text-muted);
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+
+    .eg-btn-ghost:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-main);
+    }
+
+    .eg-btn-sm {
+      padding: 6px 12px;
+      font-size: 0.78rem;
+    }
+
+    /* CART LAYOUT */
+
+    .cart-header {
+      padding-top: 18px;
+      padding-bottom: 10px;
+    }
+
+    .cart-title-row {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    @media (min-width: 760px) {
+      .cart-title-row {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-end;
+      }
+    }
+
+    .cart-heading {
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+
+    .cart-sub {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      max-width: 390px;
+    }
+
+    .cart-meta {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .cart-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .cart-layout {
+      display: grid;
+      gap: 14px;
+    }
+
+    @media (min-width: 880px) {
+      .cart-layout {
+        grid-template-columns: minmax(0, 3fr) minmax(0, 2.2fr);
+      }
+    }
+
+    .cart-items-card {
+      background: rgba(7, 7, 14, 0.97);
+      border-radius: 18px;
+      border: 1px solid var(--border-subtle);
+      padding: 12px 11px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .cart-summary-card {
+      background: rgba(7, 7, 14, 0.97);
+      border-radius: 18px;
+      border: 1px solid var(--border-subtle);
+      padding: 12px 11px;
+      box-shadow: var(--shadow-soft);
+      height: fit-content;
+    }
+
+    .cart-items-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .cart-empty {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      padding: 12px 10px;
+      border-radius: 14px;
+      border: 1px dashed rgba(255, 255, 255, 0.12);
+      background: rgba(5, 5, 12, 0.97);
+    }
+
+    .cart-item {
+      display: grid;
+      grid-template-columns: 80px minmax(0, 1fr);
+      gap: 10px;
+      padding: 8px;
+      border-radius: 14px;
+      background: rgba(5, 5, 12, 0.96);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .cart-item-thumb {
+      border-radius: 10px;
+      overflow: hidden;
+      background: #181821;
+      aspect-ratio: 4 / 3;
+    }
+
+    .cart-item-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .cart-item-main {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .cart-item-title {
+      font-size: 0.88rem;
+      font-weight: 500;
+      line-height: 1.25;
+    }
+
+    .cart-item-meta {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+    }
+
+    .cart-item-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .cart-qty-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: rgba(3, 3, 10, 0.96);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .cart-qty-btn {
+      width: 20px;
+      height: 20px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s ease-out, transform 0.15s ease-out;
+    }
+
+    .cart-qty-btn:hover {
+      background: rgba(255, 255, 255, 0.18);
+      transform: translateY(-0.5px);
+    }
+
+    .cart-qty-value {
+      min-width: 18px;
+      text-align: center;
+      font-size: 0.8rem;
+    }
+
+    .cart-line-price {
+      text-align: right;
+      font-size: 0.85rem;
+    }
+
+    .cart-line-price strong {
+      color: var(--accent-strong);
+    }
+
+    .cart-remove {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      display: inline-block;
+      margin-top: 2px;
+    }
+
+    .cart-remove:hover {
+      color: #ff8094;
+      border-color: rgba(255, 128, 148, 0.6);
+    }
+
+    .cart-summary-title {
+      font-size: 0.95rem;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    .cart-summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 0.85rem;
+      margin-bottom: 4px;
+    }
+
+    .cart-summary-row span.label {
+      color: var(--text-muted);
+    }
+
+    .cart-summary-row span.value {
+      font-weight: 500;
+    }
+
+    .cart-summary-row.total span.value {
+      color: var(--accent-strong);
+      font-size: 0.95rem;
+    }
+
+    .cart-summary-note {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+
+    .cart-summary-actions {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .cart-summary-actions button {
+      width: 100%;
+    }
+
+    /* COUPON UI */
+
+    .coupon-box {
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.12);
+    }
+
+    .coupon-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .coupon-row {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .coupon-input {
+      flex: 1;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(5, 5, 10, 0.98);
+      color: var(--text-main);
+      font-size: 0.8rem;
+      outline: none;
+      transition: border-color 0.18s ease-out, box-shadow 0.18s ease-out,
+        background 0.18s ease-out;
+    }
+
+    .coupon-input::placeholder {
+      color: rgba(160, 160, 184, 0.65);
+    }
+
+    .coupon-input:focus {
+      border-color: rgba(154, 139, 255, 0.9);
+      box-shadow: 0 0 0 1px rgba(154, 139, 255, 0.9);
+      background: rgba(6, 6, 14, 0.98);
+    }
+
+    .coupon-status {
+      font-size: 0.75rem;
+      margin-top: 3px;
+      color: var(--text-muted);
+    }
+
+    .coupon-status[data-status="success"] {
+      color: #5cf59f;
+    }
+
+    .coupon-status[data-status="error"] {
+      color: var(--danger);
+    }
+
+    .coupon-hint {
+      font-size: 0.72rem;
+      color: rgba(160, 160, 184, 0.8);
+      margin-top: 2px;
+    }
+
+    .coupon-remove {
+      font-size: 0.72rem;
+      color: var(--danger);
+      text-decoration: underline dotted;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      padding: 0;
+      margin-left: 4px;
+    }
+
+    /* FOOTER */
+
+    .footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      padding: 12px 16px 18px;
+      margin-top: 10px;
+      background: rgba(3, 3, 8, 0.98);
+    }
+
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    @media (min-width: 720px) {
+      .footer-inner {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .footer-link {
+      cursor: pointer;
+      opacity: 0.83;
+      transition: opacity 0.15s ease-out, color 0.15s ease-out;
+    }
+
+    .footer-link:hover {
+      opacity: 1;
+      color: var(--accent-strong);
+    }
+
+    .footer-brand {
+      font-weight: 500;
+      color: rgba(235, 235, 255, 0.9);
+    }
+
+    .footer-copy {
+      opacity: 0.7;
+    }
+
+    .footer-badge {
+      font-size: 0.72rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(106, 92, 255, 0.12);
+      border: 1px solid rgba(106, 92, 255, 0.4);
+      color: var(--accent-strong);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page-shell">
+    <!-- NAVBAR -->
+    <header class="eg-navbar">
+      <div class="eg-nav-inner">
+        <div class="eg-nav-left">
+          <a href="index.html" class="eg-logo-wrap" aria-label="Edutaxgrid home">
+            <img src="assets/images/logo.png" alt="Edutaxgrid logo" />
+          </a>
+          <div class="eg-brand-text">
+            <div class="eg-brand-name">Edutaxgrid</div>
+            <div class="eg-brand-tagline">Your cart</div>
+          </div>
+        </div>
+
+        <div class="eg-nav-right">
+          <button
+            type="button"
+            class="eg-cart-btn"
+            aria-label="Open cart"
+            data-button
+            data-nav-link="cart"
+          >
+            <span class="eg-cart-icon">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M6 6h15l-1.2 7.2a2 2 0 0 1-2 1.8H9.1a2 2 0 0 1-2-1.5L5 3.5H3"
+                  stroke="#f7f7ff"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <circle cx="10" cy="19.5" r="1.3" fill="#f7f7ff" />
+                <circle cx="17" cy="19.5" r="1.3" fill="#f7f7ff" />
+              </svg>
+            </span>
+            <span class="eg-cart-count" data-cart-count>0</span>
+          </button>
+
+          <button
+            type="button"
+            class="eg-burger-btn"
+            aria-label="Open navigation"
+            data-burger-toggle
+          >
+            <div class="eg-burger-lines">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <div class="eg-burger-menu" data-burger-menu data-open="false">
+        <div class="eg-burger-menu-inner">
+          <button
+            type="button"
+            class="eg-nav-item"
+            data-auth-nav-switch
+            data-nav-link="signin"
+          >
+            <span class="label">Sign in</span>
+            <span class="badge">Google</span>
+          </button>
+
+          <button type="button" class="eg-nav-item" data-nav-link="home">
+            <span class="label">Home</span>
+          </button>
+
+          <button type="button" class="eg-nav-item" data-nav-link="store">
+            <span class="label">Store</span>
+          </button>
+
+          <button type="button" class="eg-nav-item" data-nav-link="cart">
+            <span class="label">Cart</span>
+          </button>
+
+          <button type="button" class="eg-nav-item" data-nav-link="faq">
+            <span class="label">FAQ</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN -->
+    <main class="page-main">
+      <div class="container">
+        <section class="cart-header">
+          <div class="cart-title-row">
+            <div>
+              <h1 class="cart-heading">Your cart</h1>
+              <p class="cart-sub">
+                Review your selected notes and ebooks before paying through UPI.
+                You can adjust quantity or remove items anytime.
+              </p>
+            </div>
+            <div class="cart-meta">
+              <span class="cart-pill">
+                <span
+                  style="width:8px;height:8px;border-radius:999px;background:#3cf584;"
+                ></span>
+                Instant digital delivery (email)
+              </span>
+            </div>
+          </div>
+        </section>
+
+        <section class="cart-layout">
+          <div class="cart-items-card">
+            <div id="cart-items" class="cart-items-list">
+              <!-- filled by JS -->
+            </div>
+          </div>
+
+          <aside class="cart-summary-card">
+            <div class="cart-summary-title">Order summary</div>
+            <div class="cart-summary-row">
+              <span class="label">Items total</span>
+              <span class="value" id="cart-items-total">₹0</span>
+            </div>
+
+            <div class="cart-summary-row" id="cart-coupon-row" style="display:none;">
+              <span class="label">
+                Coupon discount
+                <span id="cart-coupon-label"></span>
+              </span>
+              <span class="value" id="cart-coupon-value">-₹0</span>
+            </div>
+
+            <div class="cart-summary-row total">
+              <span class="label">To pay</span>
+              <span class="value" id="cart-grand-total">₹0</span>
+            </div>
+
+            <div class="coupon-box">
+              <div class="coupon-label">Have a coupon?</div>
+              <div class="coupon-row">
+                <input
+                  type="text"
+                  id="cart-coupon-input"
+                  class="coupon-input"
+                  placeholder="Enter code (e.g. WELCOME10)"
+                />
+                <button
+                  type="button"
+                  class="eg-btn eg-btn-ghost eg-btn-sm"
+                  id="cart-coupon-apply"
+                >
+                  Apply
+                </button>
+              </div>
+              <p class="coupon-status" id="cart-coupon-status">
+                Tip: Try <strong>WELCOME10</strong> or <strong>STUDY50</strong>.
+              </p>
+              <p class="coupon-hint">
+                Coupons apply only on the digital total. Minimum amount may be required.
+              </p>
+            </div>
+
+            <p class="cart-summary-note">
+              You will pay using UPI on the next page. After submitting the
+              payment form, your PDFs will be delivered to your email within
+              <strong>36 hours</strong>.
+            </p>
+            <div class="cart-summary-actions">
+              <button
+                type="button"
+                class="eg-btn eg-btn-primary"
+                id="cart-proceed-btn"
+              >
+                Proceed to payment
+              </button>
+              <button
+                type="button"
+                class="eg-btn eg-btn-ghost"
+                data-nav-link="store"
+              >
+                ← Continue shopping
+              </button>
+            </div>
+          </aside>
+        </section>
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-inner">
+        <div>
+          <div class="footer-brand">Edutaxgrid</div>
+          <div class="footer-copy">
+            © <span id="footer-year"></span> • Cart page
+          </div>
+        </div>
+        <div class="footer-links">
+          <button type="button" class="footer-link" data-nav-link="home">
+            Home
+          </button>
+          <button type="button" class="footer-link" data-nav-link="store">
+            Store
+          </button>
+          <a href="policies.html" class="footer-link">Policies & terms</a>
+          <span class="footer-badge">Digital notes only</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-auth-compat.js"></script>
+  
+   <!-- Your JS -->
+  <script src="assets/js/product.js"></script>
+  <script src="assets/js/script.js"></script>
+  <script src="assets/js/authentication.js"></script>
+
+  <script>
+    document.getElementById("footer-year").textContent =
+      new Date().getFullYear();
+
+    (function () {
+      const itemsContainer = document.getElementById("cart-items");
+      const totalSpan = document.getElementById("cart-grand-total");
+      const itemsTotalSpan = document.getElementById("cart-items-total");
+      const proceedBtn = document.getElementById("cart-proceed-btn");
+
+      const couponRow = document.getElementById("cart-coupon-row");
+      const couponLabel = document.getElementById("cart-coupon-label");
+      const couponValue = document.getElementById("cart-coupon-value");
+      const couponInput = document.getElementById("cart-coupon-input");
+      const couponApplyBtn = document.getElementById("cart-coupon-apply");
+      const couponStatus = document.getElementById("cart-coupon-status");
+
+      const COUPON_STORAGE_KEY = "edutaxgrid_active_coupon";
+
+      // Define available coupons
+      const COUPONS = {
+        WELCOME10: {
+          code: "WELCOME10",
+          type: "percent", // percent / flat
+          value: 10,
+          minTotal: 0,
+          label: "WELCOME10 (10% off)"
+        },
+        STUDY50: {
+          code: "STUDY50",
+          type: "flat",
+          value: 50,
+          minTotal: 249,
+          label: "STUDY50 (₹50 off above ₹249)"
+        }
+      };
+
+      function format(amount) {
+        if (window.ProductStore && window.ProductStore.formatCurrency) {
+          return window.ProductStore.formatCurrency(amount);
+        }
+        return "₹" + amount;
+      }
+
+      function loadActiveCouponCode() {
+        try {
+          return localStorage.getItem(COUPON_STORAGE_KEY) || "";
+        } catch (e) {
+          return "";
+        }
+      }
+
+      function saveActiveCouponCode(code) {
+        try {
+          if (code) {
+            localStorage.setItem(COUPON_STORAGE_KEY, code);
+          } else {
+            localStorage.removeItem(COUPON_STORAGE_KEY);
+          }
+        } catch (e) {}
+      }
+
+      function clearCouponUI() {
+        if (couponRow) couponRow.style.display = "none";
+        if (couponLabel) couponLabel.textContent = "";
+        if (couponValue) couponValue.textContent = "-₹0";
+        if (couponStatus) {
+          couponStatus.textContent = 'Tip: Try WELCOME10 or STUDY50.';
+          couponStatus.removeAttribute("data-status");
+        }
+      }
+
+      function renderCart() {
+        if (!window.ProductStore) return;
+
+        const detailed = window.ProductStore.getCartDetailed();
+        let subtotal = window.ProductStore.getCartTotal();
+
+        let activeCode = loadActiveCouponCode();
+        let activeCoupon = activeCode ? COUPONS[activeCode] : null;
+
+        // If cart is empty, clear coupon
+        if (!detailed.length) {
+          saveActiveCouponCode("");
+          itemsContainer.innerHTML =
+            '<div class="cart-empty">Your cart is empty right now. Add some notes from the <button type="button" class="footer-link" data-nav-link="store">store</button>.</div>';
+          totalSpan.textContent = format(0);
+          itemsTotalSpan.textContent = format(0);
+          proceedBtn.disabled = true;
+          proceedBtn.style.opacity = 0.7;
+          proceedBtn.style.cursor = "not-allowed";
+
+          clearCouponUI();
+
+          document
+            .querySelectorAll('[data-nav-link="store"]')
+            .forEach(function (btn) {
+              btn.addEventListener("click", function () {
+                window.location.href = "store.html";
+              });
+            });
+          return;
+        }
+
+        proceedBtn.disabled = false;
+        proceedBtn.style.opacity = 1;
+        proceedBtn.style.cursor = "pointer";
+
+        itemsContainer.innerHTML = detailed
+          .map(function (item) {
+            var p = item.product;
+            return (
+              '<article class="cart-item" data-product-id="' +
+              p.id +
+              '">' +
+              '<div class="cart-item-thumb">' +
+              '<img src="' +
+              p.coverImage +
+              '" alt="' +
+              p.name +
+              '" loading="lazy" />' +
+              "</div>" +
+              '<div class="cart-item-main">' +
+              '<div class="cart-item-title">' +
+              p.name +
+              "</div>" +
+              '<div class="cart-item-meta">' +
+              p.category +
+              " • " +
+              (p.subject || "") +
+              (p.board ? " • " + p.board : "") +
+              "</div>" +
+              '<div class="cart-item-bottom">' +
+              "<div>" +
+              '<div class="cart-qty-row">' +
+              '<button type="button" class="cart-qty-btn" data-cart-dec aria-label="Decrease quantity">−</button>' +
+              '<span class="cart-qty-value">' +
+              item.quantity +
+              "</span>" +
+              '<button type="button" class="cart-qty-btn" data-cart-inc aria-label="Increase quantity">+</button>' +
+              "</div>" +
+              '<button type="button" class="cart-remove" data-cart-remove>Remove</button>' +
+              "</div>" +
+              '<div class="cart-line-price">' +
+              "<div>Line total</div>" +
+              "<strong>" +
+              format(item.lineTotal) +
+              "</strong>" +
+              "</div>" +
+              "</div>" +
+              "</div>" +
+              "</article>"
+            );
+          })
+          .join("");
+
+        // Recalculate coupon discount based on new subtotal
+        let discountAmount = 0;
+        if (activeCoupon) {
+          if (subtotal >= activeCoupon.minTotal) {
+            if (activeCoupon.type === "percent") {
+              discountAmount = Math.round(
+                (subtotal * activeCoupon.value) / 100
+              );
+            } else {
+              discountAmount = activeCoupon.value;
+            }
+            if (discountAmount > subtotal) discountAmount = subtotal;
+          } else {
+            // Subtotal dropped below minimum required
+            saveActiveCouponCode("");
+            activeCoupon = null;
+            discountAmount = 0;
+            if (couponStatus) {
+              couponStatus.textContent =
+                "Coupon removed because cart total is below minimum amount.";
+              couponStatus.setAttribute("data-status", "error");
+            }
+          }
+        }
+
+        const grandTotal = subtotal - discountAmount;
+
+        itemsTotalSpan.textContent = format(subtotal);
+        totalSpan.textContent = format(grandTotal);
+
+        if (activeCoupon && discountAmount > 0) {
+          couponRow.style.display = "flex";
+          couponLabel.textContent = " • " + activeCoupon.label;
+          couponValue.textContent = "-" + format(discountAmount);
+          if (couponStatus) {
+            couponStatus.textContent =
+              "Coupon " + activeCoupon.code + " applied successfully.";
+            couponStatus.setAttribute("data-status", "success");
+          }
+          couponInput.value = activeCoupon.code;
+        } else {
+          clearCouponUI();
+        }
+
+        bindCartItemEvents();
+      }
+
+      function bindCartItemEvents() {
+        if (!window.ProductStore) return;
+
+        // increase
+        document.querySelectorAll("[data-cart-inc]").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            var itemEl = btn.closest(".cart-item");
+            if (!itemEl) return;
+            var id = itemEl.getAttribute("data-product-id");
+            var qtyEl = itemEl.querySelector(".cart-qty-value");
+            var qty = parseInt(qtyEl.textContent || "1", 10) + 1;
+            window.ProductStore.updateCartItem(id, qty);
+            if (window.CartUI && window.CartUI.refreshCartCount) {
+              window.CartUI.refreshCartCount();
+            }
+            renderCart();
+          });
+        });
+
+        // decrease
+        document.querySelectorAll("[data-cart-dec]").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            var itemEl = btn.closest(".cart-item");
+            if (!itemEl) return;
+            var id = itemEl.getAttribute("data-product-id");
+            var qtyEl = itemEl.querySelector(".cart-qty-value");
+            var qty = parseInt(qtyEl.textContent || "1", 10) - 1;
+            window.ProductStore.updateCartItem(id, qty);
+            if (window.CartUI && window.CartUI.refreshCartCount) {
+              window.CartUI.refreshCartCount();
+            }
+            renderCart();
+          });
+        });
+        
+        
+        // remove
+        document.querySelectorAll("[data-cart-remove]").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            var itemEl = btn.closest(".cart-item");
+            if (!itemEl) return;
+            var id = itemEl.getAttribute("data-product-id");
+            window.ProductStore.removeFromCart(id);
+            if (window.CartUI && window.CartUI.refreshCartCount) {
+              window.CartUI.refreshCartCount();
+            }
+            renderCart();
+          });
+        });
+      }
+
+      function applyCoupon() {
+        if (!window.ProductStore) return;
+
+        const detailed = window.ProductStore.getCartDetailed();
+        const subtotal = window.ProductStore.getCartTotal();
+
+        if (!detailed.length || subtotal <= 0) {
+          if (couponStatus) {
+            couponStatus.textContent =
+              "Add some notes to your cart before applying a coupon.";
+            couponStatus.setAttribute("data-status", "error");
+          }
+          return;
+        }
+
+        let rawCode = (couponInput.value || "").trim().toUpperCase();
+        if (!rawCode) {
+          if (couponStatus) {
+            couponStatus.textContent = "Please enter a coupon code.";
+            couponStatus.setAttribute("data-status", "error");
+          }
+          return;
+        }
+
+        const coupon = COUPONS[rawCode];
+        if (!coupon) {
+          if (couponStatus) {
+            couponStatus.textContent = "Invalid coupon. Please try another code.";
+            couponStatus.setAttribute("data-status", "error");
+          }
+          saveActiveCouponCode("");
+          renderCart();
+          return;
+        }
+
+        if (subtotal < coupon.minTotal) {
+          if (couponStatus) {
+            couponStatus.textContent =
+              "Minimum order value for " +
+              coupon.code +
+              " is " +
+              format(coupon.minTotal) +
+              ".";
+            couponStatus.setAttribute("data-status", "error");
+          }
+          saveActiveCouponCode("");
+          renderCart();
+          return;
+        }
+
+        // Valid coupon, save and rerender
+        saveActiveCouponCode(coupon.code);
+        renderCart();
+      }
+
+      // Proceed button
+      proceedBtn.addEventListener("click", function () {
+        if (!window.ProductStore) return;
+        var total = window.ProductStore.getCartTotal();
+        // Note: user will pay after manual coupon discount (visible here).
+        if (total <= 0 && !loadActiveCouponCode()) {
+          alert("Your cart is empty. Add some notes before proceeding.");
+          return;
+        }
+        window.location.href = "payment.html";
+      });
+
+      couponApplyBtn.addEventListener("click", function () {
+        applyCoupon();
+      });
+
+      couponInput.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          applyCoupon();
+        }
+      });
+
+      // Initial render
+      renderCart();
+    })();
+  </script>
+</body>
+</html>
