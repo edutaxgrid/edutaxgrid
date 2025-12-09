@@ -274,20 +274,7 @@ if (isSignedIn && currentUser) {
         beforeSubmit(fd);
       }
 
-      // Simple check for hCaptcha response if present
-      const hCaptcha = fd.get("h-captcha-response");
-      if (form.querySelector(".h-captcha") && !hCaptcha) {
-        showFormStatus(
-          form,
-          "Please complete the captcha before submitting.",
-          "error"
-        );
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.removeAttribute("data-loading");
-        }
-        return;
-      }
+     
 
       showFormStatus(form, "Submitting...", "info");
 
