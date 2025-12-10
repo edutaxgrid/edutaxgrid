@@ -982,15 +982,22 @@
           code: "WELCOME10",
           type: "percent", // percent / flat
           value: 10,
-          minTotal: 0,
-          label: "WELCOME10 (10% off)"
+          minTotal: 100,
+          label: "WELCOME10 (10% off above ₹100)"
         },
         STUDY50: {
           code: "STUDY50",
           type: "flat",
           value: 50,
-          minTotal: 249,
+          minTotal: 200,
           label: "STUDY50 (₹50 off above ₹249)"
+        },
+        DAV66260: {
+          code: "DAV66260",
+          type: "percent",
+          value: 30,
+          minTotal: 100,
+          label: "DAV66260 (20% off above ₹100 for DAVians)"
         }
       };
 
