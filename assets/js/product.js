@@ -26,167 +26,331 @@
   // ---------- Products Database ----------
 
   const products = [
-    {
-      id: "math10_full_notes",
-      name: "Class 10 CBSE Maths Full Notes (English)",
-      coverImage: "assets/images/p-math10-notes.png",
-      originalPrice: 199,
-      discountPercent: 40, // 40% OFF
-      category: "Class 10",
-      subject: "Mathematics",
-      board: "CBSE",
-      language: "English",
-      isRecommended: true,
-      sampleImages: [
-        "assets/images/sample-math10-1.png",
-        "assets/images/sample-math10-2.png"
-      ],
-      description:
-        "Complete Class 10 CBSE Maths notes with chapter-wise explanations, formulas, and important questions. Perfect for last-minute revision and board exam preparation."
-    },
-    {
-      id: "sci10_quick_revision",
-      name: "Class 10 Science Quick Revision Notes",
-      coverImage: "assets/images/p-sci10-quickrev.png",
-      originalPrice: 149,
-      discountPercent: 35,
-      category: "Class 10",
-      subject: "Science",
-      board: "CBSE",
-      language: "English",
-      isRecommended: true,
-      sampleImages: [
-        "assets/images/sample-sci10-1.png"
-      ],
-      description:
-        "Short, crisp Class 10 Science notes covering Physics, Chemistry and Biology. Designed for fast revision before exams with diagrams and bullet points."
-    },
-    {
-      id: "eng10_writing_pack",
-      name: "Class 10 English Writing Skills Pack",
-      coverImage: "assets/images/p-eng10-writing.png",
-      originalPrice: 129,
-      discountPercent: 45,
-      category: "Class 10",
-      subject: "English",
-      board: "CBSE",
-      language: "English",
-      isRecommended: false,
-      sampleImages: [],
-      description:
-        "Important formats and sample answers for letters, articles, notices, and speeches for Class 10 boards. Score-boosting content with examiner-friendly language."
-    },
-    {
-      id: "math9_concept_notes",
-      name: "Class 9 Maths Concept Notes",
-      coverImage: "assets/images/p-std9-maths.png",
-      originalPrice: 149,
-      discountPercent: 30,
-      category: "Class 9",
-      subject: "Mathematics",
-      board: "CBSE",
-      language: "English",
-      isRecommended: false,
-      sampleImages: [],
-      description:
-        "Concept-focused maths notes for Class 9 with solved examples and tips to build strong basics before Class 10."
-    },
-    {
-      id: "accounts12_full_ebook",
-      name: "Class 12 Accountancy Full Ebook",
-      coverImage: "assets/images/p-std12-accounts.png",
-      originalPrice: 249,
-      discountPercent: 40,
-      category: "Class 12",
-      subject: "Accountancy",
-      board: "CBSE",
-      language: "English",
-      isRecommended: true,
-      sampleImages: [
-        "assets/images/sample-accounts12-1.png"
-      ],
-      description:
-        "Detailed Class 12 Accountancy ebook with journal entries, ledgers, financial statements, and project guidance. Suitable for commerce students targeting high scores."
-    },
-    {
-      id: "physics12_revision_bundle",
-      name: "Class 12 Physics Revision Bundle (PCM)",
-      coverImage: "assets/images/p-std12-physics.png",
-      originalPrice: 299,
-      discountPercent: 50,
-      category: "Class 12",
-      subject: "Physics",
-      board: "CBSE",
-      language: "English",
-      isRecommended: true,
-      sampleImages: [],
-      description:
-        "Compact revision notes for Class 12 Physics including derivations, formulas, important graphs, and previous-year style questions."
-    },
-    {
-      id: "neet_bio_crash_notes",
-      name: "NEET Biology Crash Notes",
-      coverImage: "assets/images/p-neet-bio.png",
-      originalPrice: 399,
-      discountPercent: 50,
-      category: "Entrance",
-      subject: "Biology",
-      board: "NEET",
-      language: "English",
-      isRecommended: true,
-      sampleImages: [
-        "assets/images/sample-neetbio-1.png"
-      ],
-      description:
-        "High-yield NEET Biology notes covering NCERT in a question-oriented way. Ideal for last month crash revision."
-    },
-    {
-      id: "jee_maths_formulas",
-      name: "JEE Main Maths Formula & PYQ Pack",
-      coverImage: "assets/images/p-jee-maths.png",
-      originalPrice: 349,
-      discountPercent: 45,
-      category: "Entrance",
-      subject: "Mathematics",
-      board: "JEE",
-      language: "English",
-      isRecommended: false,
-      sampleImages: [],
-      description:
-        "Formula sheets + chapter-wise previous year questions set for JEE Main Maths to sharpen problem-solving speed."
-    },
-    {
-      id: "motivation_quotes_ebook",
-      name: "Student Motivation Quotes Ebook (Bilingual)",
-      coverImage: "assets/images/p-motivation-quotes.png",
-      originalPrice: 99,
-      discountPercent: 50,
-      category: "General",
-      subject: "Motivation",
-      board: "All",
-      language: "English + Hindi",
-      isRecommended: false,
-      sampleImages: [],
-      description:
-        "Curated motivational quotes for students in both English and Hindi, designed to keep you consistent during exam season."
-    },
-    {
-      id: "study_planner_productivity",
-      name: "Ultimate Study Planner & Productivity Guide (PDF)",
-      coverImage: "assets/images/p-productivity-ebook.png",
-      originalPrice: 129,
-      discountPercent: 40,
-      category: "General",
-      subject: "Productivity",
-      board: "All",
-      language: "English",
-      isRecommended: true,
-      sampleImages: [],
-      description:
-        "Printable study planner templates + productivity tips to plan your day, track habits, and stay focused throughout the year."
-    }
-  ];
 
+  // ⭐ ALL CHAPTER KEY POINTS PACK — (199)
+  {
+    id: "math10_all_chapter_keypoints",
+    name: "Class 10 Maths Complete Key-Points & Theorem Handbook",
+    coverImage: "assets/images/p-math10-all-keypoints.png",
+    originalPrice: 249, // 20% OFF => 199
+    discountPercent: 20,
+    category: "Class 10",
+    subject: "Mathematics",
+    board: "CBSE",
+    language: "English",
+    isRecommended: false,
+    sampleImages: [],
+    description:
+      "Class 10 Maths all chapters key-points and theorems in a clean, exam-ready format. Ideal for quick revision and boosting board exam accuracy."
+  },
+
+  // ⭐ MIND MAP PACK — (49) — RECOMMENDED
+  {
+    id: "math10_full_mindmap_pack",
+    name: "Class 10 Maths Full Syllabus Mind Map Pack (Visual Revision)",
+    coverImage: "assets/images/p-math10-mindmaps.png",
+    originalPrice: 70, // 30% OFF => 49
+    discountPercent: 30,
+    category: "Class 10",
+    subject: "Mathematics",
+    board: "CBSE",
+    language: "English",
+    isRecommended: true,
+    sampleImages: [],
+    description:
+      "Visual mind maps for all Class 10 Maths chapters to revise the entire syllabus in minutes. Designed for fast memory recall during boards."
+  },
+
+  // ⭐ PYQ PACK — (49) — RECOMMENDED
+  {
+    id: "math10_pyq_full_pack",
+    name: "Class 10 Maths PYQ + Important Question Bank",
+    coverImage: "assets/images/p-math10-pyq.png",
+    originalPrice: 82, // 40% OFF => 49
+    discountPercent: 40,
+    category: "Class 10",
+    subject: "Mathematics",
+    board: "CBSE",
+    language: "English",
+    isRecommended: true,
+    sampleImages: [],
+    description:
+      "Chapter-wise solved Class 10 Maths PYQ with exam-style questions. Perfect for understanding board trends and scoring high."
+  },
+
+  // ⭐ FORMULA BOOK — (29)
+  {
+    id: "math10_formula_theorem_book",
+    name: "Class 10 Maths Ultimate Formula & Theorem Book",
+    coverImage: "assets/images/p-math10-formula-book.png",
+    originalPrice: 36, // 20% OFF => 29
+    discountPercent: 20,
+    category: "Class 10",
+    subject: "Mathematics",
+    board: "CBSE",
+    language: "English",
+    isRecommended: false,
+    sampleImages: [],
+    description:
+      "A compact formula and theorem book covering the full Class 10 Maths syllabus. Perfect for daily revision and quick exam preparation."
+  },
+
+  // ⭐ LAST TIME NOTES — (49)
+  {
+    id: "math10_last_time_notes",
+    name: "Class 10 Maths Last-Minute Smart Revision Notes",
+    coverImage: "assets/images/p-math10-lasttime.png",
+    originalPrice: 61, // 20% OFF => 49
+    discountPercent: 20,
+    category: "Class 10",
+    subject: "Mathematics",
+    board: "CBSE",
+    language: "English",
+    isRecommended: false,
+    sampleImages: [],
+    description:
+      "Super-concise revision notes for Class 10 Maths designed for exam-day prep. Covers all must-know formulas, theorems, and scoring tips."
+  },
+
+  // ⭐ REAL NUMBERS — (19)
+  {
+    id: "math10_real_numbers_all_in_one",
+    name: "Class 10 Real Numbers Complete Revision Kit",
+    coverImage: "assets/images/p-math10-realnumbers.png",
+    originalPrice: 24, // 20% OFF => 19
+    discountPercent: 20,
+    category: "Class 10",
+    subject: "Mathematics",
+    board: "CBSE",
+    language: "English",
+    isRecommended: false,
+    sampleImages: [],
+    description:
+      "Real Numbers chapter notes with key points, Euclid concepts, mind map, PYQ, and practice questions. Best for quick and complete chapter coverage."
+  },
+
+  // ⭐ POLYNOMIALS — (19)
+  {
+    id: "math10_polynomials_all_in_one",
+    name: "Class 10 Polynomials All-in-One Notes + PYQ",
+    coverImage: "assets/images/p-math10-polynomials.png",
+    originalPrice: 27, // 30% OFF => 19
+    discountPercent: 30,
+    category: "Class 10",
+    subject: "Mathematics",
+    board: "CBSE",
+    language: "English",
+    isRecommended: false,
+    sampleImages: [],
+    description:
+      "Polynomials chapter simplified with zero tricks, identities, mind map, PYQ and practice sets for stronger concept understanding."
+  },
+
+  // ⭐ LINEAR EQUATIONS — (29)
+  {
+    id: "math10_linear_equations_bundle",
+    name: "Class 10 Linear Equations Concept Booster Pack",
+    coverImage: "assets/images/p-math10-lineareq.png",
+    originalPrice: 42, // 30% OFF => 29
+    discountPercent: 30,
+    category: "Class 10",
+    subject: "Mathematics",
+    board: "CBSE",
+    language: "English",
+    isRecommended: false,
+    sampleImages: [],
+    description:
+      "Complete revision of Linear Equations in Two Variables with solved models, formulas, PYQ and exam-level practice questions."
+  },
+
+  // ⭐ QUADRATIC EQUATIONS — (29)
+  {
+    id: "math10_quadratic_equations_bundle",
+    name: "Class 10 Quadratic Equations Master Practice Pack",
+    coverImage: "assets/images/p-math10-quadratic.png",
+    originalPrice: 41, // 30% OFF => 29
+    discountPercent: 30,
+    category: "Class 10",
+    subject: "Mathematics",
+    board: "CBSE",
+    language: "English",
+    isRecommended: false,
+    sampleImages: [],
+    description:
+      "Quadratic Equations simplified with step-by-step formulas, solved types, PYQ and practice exercises to handle any board exam problem."
+  },
+
+  // ⭐ AP — (29)
+  {
+    id: "math10_arithmetic_progressions_bundle",
+    name: "Class 10 Arithmetic Progressions Smart Revision Pack",
+    coverImage: "assets/images/p-math10-ap.png",
+    originalPrice: 36, // 20% OFF => 29
+    discountPercent: 20,
+    category: "Class 10",
+    subject: "Mathematics",
+    board: "CBSE",
+    language: "English",
+    isRecommended: false,
+    sampleImages: [],
+    description:
+      "Complete AP notes including formulas, solved models, mind map, PYQ and exam-focused practice questions."
+  },
+
+  // ⭐ COORDINATE GEOMETRY — (29)
+  {
+    id: "math10_coordinate_geometry_bundle",
+    name: "Class 10 Coordinate Geometry Exam-Ready Pack",
+    coverImage: "assets/images/p-math10-coordinate-geometry.png",
+    originalPrice: 48, // 40% OFF => 29
+    discountPercent: 40,
+    category: "Class 10",
+    subject: "Mathematics",
+    board: "CBSE",
+    language: "English",
+    isRecommended: false,
+    sampleImages: [],
+    description:
+      "Distance formula, section formula and area concepts explained with visuals, PYQ and targeted practice sets for better accuracy."
+  },
+
+  // ⭐ TRIANGLES — (29)
+  {
+    id: "math10_triangles_bundle",
+    name: "Class 10 Triangles Theorem + PYQ Practice Kit",
+    coverImage: "assets/images/p-math10-triangles.png",
+    originalPrice: 41, // 30% OFF => 29
+    discountPercent: 30,
+    category: "Class 10",
+    subject: "Mathematics",
+    board: "CBSE",
+    language: "English",
+    isRecommended: false,
+    sampleImages: [],
+    description:
+      "Similarity theorems, proofs, key results, mind map and exam-level practice for mastering the Triangles chapter."
+  },
+
+  // ⭐ CIRCLES — (29)
+  {
+    id: "math10_circles_bundle",
+    name: "Class 10 Circles & Tangents Quick Revision Pack",
+    coverImage: "assets/images/p-math10-circles.png",
+    originalPrice: 36, // 20% OFF => 29
+    discountPercent: 20,
+    category: "Class 10",
+    subject: "Mathematics",
+    board: "CBSE",
+    language: "English",
+    isRecommended: false,
+    sampleImages: [],
+    description:
+      "Circle theorems, tangent properties, solved examples, PYQ and practice sets — all in one crisp revision package."
+  },
+
+  // ⭐ TRIGONOMETRY — (29)
+  {
+    id: "math10_trigonometry_bundle",
+    name: "Class 10 Trigonometry Identities + PYQ Workbook",
+    coverImage: "assets/images/p-math10-trigonometry.png",
+    originalPrice: 41, // 30% OFF => 29
+    discountPercent: 30,
+    category: "Class 10",
+    subject: "Mathematics",
+    board: "CBSE",
+    language: "English",
+    isRecommended: false,
+    sampleImages: [],
+    description:
+      "Trigonometric ratios, identities, tables, PYQ and exam problems — everything needed for full-score trigonometry preparation."
+  },
+
+  // ⭐ HEIGHTS & DISTANCES — (29)
+  {
+    id: "math10_heights_distances_bundle",
+    name: "Class 10 Heights & Distances Application Notes",
+    coverImage: "assets/images/p-math10-heights-distance.png",
+    originalPrice: 33, // 10% OFF => 29
+    discountPercent: 10,
+    category: "Class 10",
+    subject: "Mathematics",
+    board: "CBSE",
+    language: "English",
+    isRecommended: false,
+    sampleImages: [],
+    description:
+      "Angle of elevation and depression concepts with solved examples, PYQ and practice exercises for guaranteed accuracy."
+  },
+
+  // ⭐ AREA RELATED TO CIRCLES — (29)
+  {
+    id: "math10_areas_related_to_circles_bundle",
+    name: "Class 10 Areas Related to Circles Full Practice Pack",
+    coverImage: "assets/images/p-math10-areas-circles.png",
+    originalPrice: 36, // 20% OFF => 29
+    discountPercent: 20,
+    category: "Class 10",
+    subject: "Mathematics",
+    board: "CBSE",
+    language: "English",
+    isRecommended: false,
+    sampleImages: [],
+    description:
+      "Sectors, segments, shortcuts, PYQ and practice sheets for quick mastery of area-based questions."
+  },
+
+  // ⭐ SURFACE AREA & VOLUME — (29)
+  {
+    id: "math10_surface_area_volume_bundle",
+    name: "Class 10 Surface Area & Volume 3D Concept Pack",
+    coverImage: "assets/images/p-math10-surface-volume.png",
+    originalPrice: 41, // 30% OFF => 29
+    discountPercent: 30,
+    category: "Class 10",
+    subject: "Mathematics",
+    board: "CBSE",
+    language: "English",
+    isRecommended: false,
+    sampleImages: [],
+    description:
+      "3D shapes formulas, visual explanations, PYQ and practice sets for strong clarity in SA & Volume problems."
+  },
+
+  // ⭐ STATISTICS — (29)
+  {
+    id: "math10_statistics_bundle",
+    name: "Class 10 Statistics Fast-Track Exam Notes",
+    coverImage: "assets/images/p-math10-statistics.png",
+    originalPrice: 48, // 40% OFF => 29
+    discountPercent: 40,
+    category: "Class 10",
+    subject: "Mathematics",
+    board: "CBSE",
+    language: "English",
+    isRecommended: false,
+    sampleImages: [],
+    description:
+      "Mean, median, mode, graphs, PYQ and model questions — everything required for high-score statistics preparation."
+  },
+
+  // ⭐ PROBABILITY — (29)
+  {
+    id: "math10_probability_bundle",
+    name: "Class 10 Probability Complete Concept Pack",
+    coverImage: "assets/images/p-math10-probability.png",
+    originalPrice: 33, // 10% OFF => 29
+    discountPercent: 10,
+    category: "Class 10",
+    subject: "Mathematics",
+    board: "CBSE",
+    language: "English",
+    isRecommended: false,
+    sampleImages: [],
+    description:
+      "Probability laws, solved models, PYQ and practice sets designed to remove confusion and improve accuracy."
+  }
+
+];
   // ---------- Utility Functions ----------
 
   function getDiscountedPrice(product) {
