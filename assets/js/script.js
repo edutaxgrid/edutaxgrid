@@ -426,13 +426,13 @@
               type="button"
               data-add-to-cart
               data-product-id="${p.id}">
-              Add to cart
+              Add to cart <i class="fa-solid fa-cart-shopping"></i>
             </button>
             <button 
               class="eg-btn eg-btn-ghost"
               type="button"
               data-go-to-page="store">
-              Back to store
+              Back to store <i class="fa-solid fa-arrow-right"></i>
             </button>
           </div>
         </div>
