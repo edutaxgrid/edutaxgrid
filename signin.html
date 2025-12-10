@@ -8,7 +8,7 @@
     name="description"
     content="Sign in with Google to save your orders and receive digital notes from Edutaxgrid."
   />
-
+<script src="https://kit.fontawesome.com/9dc5629d59.js" crossorigin="anonymous"></script>
   <style>
     :root {
       --bg-main: #050509;
@@ -472,15 +472,19 @@
       }
     }
     
-    .footer-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
+     .footer-links {
+        display: flex; 
+        gap: 20px;
+      color: var(--text-muted);
     }
 
-    .footer-link {
+    .footer-link, a {
       cursor: pointer;
-      opacity: 0.83;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      font-size: 20px;
+      color: var(--text-muted);
       transition: opacity 0.15s ease-out, color 0.15s ease-out;
     }
 
@@ -576,19 +580,19 @@
           </button>
 
           <button type="button" class="eg-nav-item" data-nav-link="home">
-            <span class="label">Home</span>
+            <span class="label"><i class="fa-solid fa-house"></i> Home</span>
           </button>
 
           <button type="button" class="eg-nav-item" data-nav-link="store">
-            <span class="label">Store</span>
-          </button>
-
-          <button type="button" class="eg-nav-item" data-nav-link="cart">
-            <span class="label">Cart</span>
+            <span class="label"><i class="fa-solid fa-cart-shopping"></i> Store</span>
           </button>
 
           <button type="button" class="eg-nav-item" data-nav-link="faq">
-            <span class="label">FAQ</span>
+            <span class="label"><i class="fa-solid fa-circle-question"></i> FAQ</span>
+          </button>
+
+          <button type="button" class="eg-nav-item" data-nav-link="feedback">
+            <span class="label"><i class="fa-solid fa-comments"></i> Feedback</span>
           </button>
         </div>
       </div>
@@ -612,7 +616,7 @@
                 class="eg-btn eg-btn-primary"
                 data-auth-google
               >
-                <span class="google-icon"></span>
+                <i class="fa-brands fa-google"></i>
                 <span>Continue with Google</span>
               </button>
 
@@ -621,7 +625,7 @@
                 class="eg-btn eg-btn-ghost eg-btn-sm"
                 data-nav-link="home"
               >
-                ← Back to home
+               <i class="fa-solid fa-arrow-left"></i> Back to home
               </button>
             </div>
 
@@ -654,14 +658,14 @@
                 class="eg-btn eg-btn-primary eg-btn-sm"
                 data-nav-link="store"
               >
-                Go to store
+                Go to store <i class="fa-solid fa-cart-shopping"></i>
               </button>
               <button
                 type="button"
                 class="eg-btn eg-btn-ghost eg-btn-sm"
                 data-nav-link="profile"
               >
-                Open profile
+                Open profile <i class="fa-solid fa-user"></i>
               </button>
             </div>
 
@@ -683,14 +687,14 @@
           </div>
         </div>
         <div class="footer-links">
-          <button type="button" class="footer-link" data-nav-link="home">
-            Home
-          </button>
-          <button type="button" class="footer-link" data-nav-link="store">
-            Store
-          </button>
-          <a href="policies.html" class="footer-link">Policies & terms</a>
-          <span class="footer-badge">Google sign-in only</span>
+           <a href="https://www.instagram.com/edutaxgrid?igsh=cmxybmlwMzdvMTRn" target="_blank">
+          <i class="fa-brands fa-instagram"></i></a>
+          <a href="https://www.linkedin.com/in/edutaxgrid-undefined-1b8657399?trk=contact-info" target="_blank">
+          <i class="fa-brands fa-linkedin"></i></a>
+          <a href="https://youtube.com/@edutaxgrid?si=5FcRx1PGC5yAwN58" target="_blank">
+          <i class="fa-brands fa-youtube"></i></a>
+          <a href="https://whatsapp.com/channel/0029VbAhxhSLo4hhWvTkz11C" target="_blank">
+          <i class="fa-brands fa-whatsapp"></i></a>
         </div>
       </div>
     </footer>

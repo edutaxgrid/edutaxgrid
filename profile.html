@@ -8,7 +8,7 @@
     name="description"
     content="Your Edutaxgrid profile – see your basic account info and quick actions for your digital notes."
   />
-
+    <script src="https://kit.fontawesome.com/9dc5629d59.js" crossorigin="anonymous"></script>
   <style>
     :root {
       --bg-main: #050509;
@@ -385,11 +385,12 @@
       height: 64px;
       border-radius: 50%;
       margin: 0 auto 10px;
-      background: radial-gradient(circle at top, #ffffff 0, #6a5cff 45%, #050509 100%);
+      background: black;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
+      font-size: 50px;
       box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.12);
     }
     a{
@@ -476,15 +477,19 @@
       }
     }
 
-    .footer-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
+     .footer-links {
+        display: flex; 
+        gap: 20px;
+      color: var(--text-muted);
     }
 
-    .footer-link {
+    .footer-link, a {
       cursor: pointer;
-      opacity: 0.83;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      font-size: 20px;
+      color: var(--text-muted);
       transition: opacity 0.15s ease-out, color 0.15s ease-out;
     }
 
@@ -580,19 +585,19 @@
           </button>
 
           <button type="button" class="eg-nav-item" data-nav-link="home">
-            Home
+            <span class="label"><i class="fa-solid fa-house"></i> Home</span>
           </button>
 
           <button type="button" class="eg-nav-item" data-nav-link="store">
-            Store
-          </button>
-
-          <button type="button" class="eg-nav-item" data-nav-link="cart">
-            Cart
+            <span class="label"><i class="fa-solid fa-cart-shopping"></i> Store</span>
           </button>
 
           <button type="button" class="eg-nav-item" data-nav-link="faq">
-            FAQ
+            <span class="label"><i class="fa-solid fa-circle-question"></i> FAQ</span>
+          </button>
+
+          <button type="button" class="eg-nav-item" data-nav-link="feedback">
+            <span class="label"><i class="fa-solid fa-comments"></i> Feedback</span>
           </button>
         </div>
       </div>
@@ -612,10 +617,10 @@
           <!-- SIGNED-IN CARD -->
           <div class="profile-card" data-auth-visible="signed-in">
             <div class="profile-avatar-wrap">
-  <span data-auth-avatar-letter>A</span>
+  <span data-auth-avatar-letter>S</span>
 </div>
             <div class="profile-name" data-auth-name>Student</div>
-            <div class="profile-email" data-auth-email>your-email@example.com</div>
+            <div class="profile-email" data-auth-email>your-email@gmail.com</div>
 
             <div class="profile-actions">
               <button
@@ -623,28 +628,28 @@
                 class="eg-btn eg-btn-primary eg-btn-sm"
                 data-nav-link="store"
               >
-                Go to store
+                Go to store <i class="fa-solid fa-cart-shopping"></i>
               </button>
               <button
                 type="button"
                 class="eg-btn eg-btn-ghost eg-btn-sm"
                 data-nav-link="cart"
               >
-                Go to cart
+                Go to cart <i class="fa-solid fa-arrow-right"></i>
               </button>
               <button
                 type="button"
                 class="eg-btn eg-btn-ghost eg-btn-sm"
                 data-nav-link="policies"
               >
-                View policies
+                View policies <i class="fa-solid fa-clipboard"></i>
               </button>
               <button
                 type="button"
                 class="eg-btn eg-btn-sm profile-signout"
                 data-auth-signout
               >
-                Sign out
+                Sign out <i class="fa-solid fa-arrow-right-from-bracket"></i>
               </button>
             </div>
 
@@ -665,14 +670,14 @@
                 class="eg-btn eg-btn-primary eg-btn-sm"
                 data-nav-link="signin"
               >
-                Continue with Google
+                <i class="fa-brands fa-google"></i> Continue with Google
               </button>
               <button
                 type="button"
                 class="eg-btn eg-btn-ghost eg-btn-sm"
                 data-nav-link="home"
               >
-                ← Back to home
+                <i class="fa-solid fa-arrow-left"></i> Back to home
               </button>
             </div>
           </div>
@@ -690,17 +695,14 @@
           </div>
         </div>
         <div class="footer-links">
-          <button type="button" class="footer-link" data-nav-link="home">
-            Home
-          </button>
-          <button type="button" class="footer-link" data-nav-link="store">
-            Store
-          </button>
-          <button type="button" class="footer-link" data-nav-link="cart">
-            Cart
-          </button>
-          <a href="policies.html" class="footer-link">Policies & terms</a>
-          <span class="footer-badge">Digital notes only</span>
+           <a href="https://www.instagram.com/edutaxgrid?igsh=cmxybmlwMzdvMTRn" target="_blank">
+          <i class="fa-brands fa-instagram"></i></a>
+          <a href="https://www.linkedin.com/in/edutaxgrid-undefined-1b8657399?trk=contact-info" target="_blank">
+          <i class="fa-brands fa-linkedin"></i></a>
+          <a href="https://youtube.com/@edutaxgrid?si=5FcRx1PGC5yAwN58" target="_blank">
+          <i class="fa-brands fa-youtube"></i></a>
+          <a href="https://whatsapp.com/channel/0029VbAhxhSLo4hhWvTkz11C" target="_blank">
+          <i class="fa-brands fa-whatsapp"></i></a>
         </div>
       </div>
     </footer>

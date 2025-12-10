@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <title>Cart | Edutaxgrid</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+   <script src="https://kit.fontawesome.com/9dc5629d59.js" crossorigin="anonymous"></script>
   <style>
     :root {
       --bg-main: #050509;
@@ -703,14 +703,18 @@
     }
 
     .footer-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
+        display: flex; 
+        gap: 20px;
+      color: var(--text-muted);
     }
 
-    .footer-link {
+    .footer-link, a {
       cursor: pointer;
-      opacity: 0.83;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      font-size: 20px;
+      color: var(--text-muted);
       transition: opacity 0.15s ease-out, color 0.15s ease-out;
     }
 
@@ -806,19 +810,19 @@
           </button>
 
           <button type="button" class="eg-nav-item" data-nav-link="home">
-            <span class="label">Home</span>
+            <span class="label"><i class="fa-solid fa-house"></i> Home</span>
           </button>
 
           <button type="button" class="eg-nav-item" data-nav-link="store">
-            <span class="label">Store</span>
-          </button>
-
-          <button type="button" class="eg-nav-item" data-nav-link="cart">
-            <span class="label">Cart</span>
+            <span class="label"><i class="fa-solid fa-cart-shopping"></i> Store</span>
           </button>
 
           <button type="button" class="eg-nav-item" data-nav-link="faq">
-            <span class="label">FAQ</span>
+            <span class="label"><i class="fa-solid fa-circle-question"></i> FAQ</span>
+          </button>
+
+          <button type="button" class="eg-nav-item" data-nav-link="feedback">
+            <span class="label"><i class="fa-solid fa-comments"></i> Feedback</span>
           </button>
         </div>
       </div>
@@ -830,7 +834,7 @@
         <section class="cart-header">
           <div class="cart-title-row">
             <div>
-              <h1 class="cart-heading">Your cart</h1>
+              <h1 class="cart-heading"><i class="fa-solid fa-cart-shopping"></i> Your cart </h1>
               <p class="cart-sub">
                 Review your selected notes and ebooks before paying through UPI.
                 You can adjust quantity or remove items anytime.
@@ -881,7 +885,7 @@
                   type="text"
                   id="cart-coupon-input"
                   class="coupon-input"
-                  placeholder="Enter code (e.g. WELCOME10)"
+                  placeholder="Enter code (e.g. STUDY50)"
                 />
                 <button
                   type="button"
@@ -892,7 +896,7 @@
                 </button>
               </div>
               <p class="coupon-status" id="cart-coupon-status">
-                Tip: Try <strong>WELCOME10</strong> or <strong>STUDY50</strong>.
+                Tip: Try <strong>STUDY50</strong>.
               </p>
               <p class="coupon-hint">
                 Coupons apply only on the digital total. Minimum amount may be required.
@@ -910,14 +914,14 @@
                 class="eg-btn eg-btn-primary"
                 id="cart-proceed-btn"
               >
-                Proceed to payment
+                Proceed to payment <i class="fa-solid fa-qrcode"></i>
               </button>
               <button
                 type="button"
                 class="eg-btn eg-btn-ghost"
                 data-nav-link="store"
               >
-                ← Continue shopping
+                <i class="fa-solid fa-arrow-left"></i> Continue shopping
               </button>
             </div>
           </aside>
@@ -935,14 +939,14 @@
           </div>
         </div>
         <div class="footer-links">
-          <button type="button" class="footer-link" data-nav-link="home">
-            Home
-          </button>
-          <button type="button" class="footer-link" data-nav-link="store">
-            Store
-          </button>
-          <a href="policies.html" class="footer-link">Policies & terms</a>
-          <span class="footer-badge">Digital notes only</span>
+           <a href="https://www.instagram.com/edutaxgrid?igsh=cmxybmlwMzdvMTRn" target="_blank">
+          <i class="fa-brands fa-instagram"></i></a>
+          <a href="https://www.linkedin.com/in/edutaxgrid-undefined-1b8657399?trk=contact-info" target="_blank">
+          <i class="fa-brands fa-linkedin"></i></a>
+          <a href="https://youtube.com/@edutaxgrid?si=5FcRx1PGC5yAwN58" target="_blank">
+          <i class="fa-brands fa-youtube"></i></a>
+          <a href="https://whatsapp.com/channel/0029VbAhxhSLo4hhWvTkz11C" target="_blank">
+          <i class="fa-brands fa-whatsapp"></i></a>
         </div>
       </div>
     </footer>
@@ -1031,7 +1035,7 @@
         if (couponLabel) couponLabel.textContent = "";
         if (couponValue) couponValue.textContent = "-₹0";
         if (couponStatus) {
-          couponStatus.textContent = 'Tip: Try WELCOME10 or STUDY50.';
+          couponStatus.textContent = 'Tip: Try STUDY50.';
           couponStatus.removeAttribute("data-status");
         }
       }
@@ -1049,7 +1053,7 @@
         if (!detailed.length) {
           saveActiveCouponCode("");
           itemsContainer.innerHTML =
-            '<div class="cart-empty">Your cart is empty right now. Add some notes from the <button type="button" class="footer-link" data-nav-link="store">store</button>.</div>';
+            '<div class="cart-empty">Your cart is empty right now. Add some notes from the <button type="button" class="footer-link" data-nav-link="store">Store</button></div>';
           totalSpan.textContent = format(0);
           itemsTotalSpan.textContent = format(0);
           proceedBtn.disabled = true;

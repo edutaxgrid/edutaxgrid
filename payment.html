@@ -8,7 +8,7 @@
     name="description"
     content="Complete your UPI payment and confirm your order for Edutaxgrid digital notes and ebooks."
   />
-
+ <script src="https://kit.fontawesome.com/9dc5629d59.js" crossorigin="anonymous"></script>
   <style>
     :root {
       --bg-main: #050509;
@@ -816,15 +816,27 @@
       }
     }
 
-    .footer-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
+     .footer-links {
+        display: flex; 
+        gap: 20px;
+      color: var(--text-muted);
     }
 
-    .footer-link {
+    .footer-links > a {
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      font-size: 20px;
+      color: var(--text-muted);
+      transition: opacity 0.15s ease-out, color 0.15s ease-out;
+    }
+
+    .footer-link{
       cursor: pointer;
       opacity: 0.83;
+      font-size: 15px;
+      color: #ffffff;
       transition: opacity 0.15s ease-out, color 0.15s ease-out;
     }
 
@@ -920,19 +932,19 @@
           </button>
 
           <button type="button" class="eg-nav-item" data-nav-link="home">
-            <span class="label">Home</span>
+            <span class="label"><i class="fa-solid fa-house"></i> Home</span>
           </button>
 
           <button type="button" class="eg-nav-item" data-nav-link="store">
-            <span class="label">Store</span>
-          </button>
-
-          <button type="button" class="eg-nav-item" data-nav-link="cart">
-            <span class="label">Cart</span>
+            <span class="label"><i class="fa-solid fa-cart-shopping"></i> Store</span>
           </button>
 
           <button type="button" class="eg-nav-item" data-nav-link="faq">
-            <span class="label">FAQ</span>
+            <span class="label"><i class="fa-solid fa-circle-question"></i> FAQ</span>
+          </button>
+
+          <button type="button" class="eg-nav-item" data-nav-link="feedback">
+            <span class="label"><i class="fa-solid fa-comments"></i> Feedback</span>
           </button>
         </div>
       </div>
@@ -1014,14 +1026,14 @@
                   id="pay-go-step2"
                   disabled
                 >
-                  I have paid, go to form →
+                  I have paid <i class="fa-solid fa-arrow-right"></i>
                 </button>
                 <button
                   type="button"
                   class="eg-btn eg-btn-ghost eg-btn-sm"
                   data-nav-link="cart"
                 >
-                  ← Back to cart
+                  Back to cart <i class="fa-solid fa-cart-shopping"></i>
                 </button>
               </div>
             </div>
@@ -1210,7 +1222,7 @@
  
                   
                   <button type="submit" class="eg-btn eg-btn-primary eg-btn-lg">
-                    Submit payment details
+                    Submit details <i class="fa-solid fa-paper-plane"></i>
                   </button>
                   <p class="payment-status" data-form-status>
                     After submitting, please wait while we verify and email your notes (within 36 hours).
@@ -1239,7 +1251,7 @@
                   data-auth-google
                   style="margin-top:10px;"
                 >
-                  Continue with Google
+                  Continue with Google <i class="fa-brands fa-google"></i>
                 </button>
                 <p style="margin-top:8px;font-size:0.74rem;color:var(--text-muted);">
                   After signing in, this page will show the payment form automatically.
@@ -1266,7 +1278,7 @@
               If you don’t receive them within 36 hours, you can:
             </p>
             <p class="thankyou-note">
-              Check the <button type="button" class="footer-link" data-nav-link="faq">FAQ section</button><br>
+              Check the <button type="button" class="footer-link" data-nav-link="faq">FAQ section</button>
               Or send us a message through the <button type="button" class="footer-link" data-nav-link="feedback">feedback form</button> on the home page.
             </p>
             <p class="thankyou-timer">
@@ -1278,7 +1290,7 @@
               class="eg-btn eg-btn-primary eg-btn-sm"
               data-nav-link="home"
             >
-              Go to home now
+              Go to home <i class="fa-solid fa-arrow-right"></i>
             </button>
           </div>
         </section>
@@ -1295,17 +1307,14 @@
           </div>
         </div>
         <div class="footer-links">
-          <button type="button" class="footer-link" data-nav-link="home">
-            Home
-          </button>
-          <button type="button" class="footer-link" data-nav-link="store">
-            Store
-          </button>
-          <button type="button" class="footer-link" data-nav-link="cart">
-            Cart
-          </button>
-          <a href="policies.html" class="footer-link">Policies & terms</a>
-          <span class="footer-badge">Digital only • No refunds</span>
+           <a href="https://www.instagram.com/edutaxgrid?igsh=cmxybmlwMzdvMTRn" target="_blank">
+          <i class="fa-brands fa-instagram"></i></a>
+          <a href="https://www.linkedin.com/in/edutaxgrid-undefined-1b8657399?trk=contact-info" target="_blank">
+          <i class="fa-brands fa-linkedin"></i></a>
+          <a href="https://youtube.com/@edutaxgrid?si=5FcRx1PGC5yAwN58" target="_blank">
+          <i class="fa-brands fa-youtube"></i></a>
+          <a href="https://whatsapp.com/channel/0029VbAhxhSLo4hhWvTkz11C" target="_blank">
+          <i class="fa-brands fa-whatsapp"></i></a>
         </div>
       </div>
     </footer>
