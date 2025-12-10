@@ -72,7 +72,7 @@
     subject: "Mathematics",
     board: "CBSE",
     language: "English",
-    isRecommended: true,
+    isRecommended: false,
     sampleImages: [],
     description:
       "Chapter-wise solved Class 10 Maths PYQ with exam-style questions. Perfect for understanding board trends and scoring high."
@@ -117,13 +117,13 @@
     id: "math10_real_numbers_all_in_one",
     name: "Class 10 Real Numbers Complete Revision Kit",
     coverImage: "assets/images/p-math10-realnumbers.png",
-    originalPrice: 24, // 20% OFF => 19
-    discountPercent: 20,
+    originalPrice: 0, // 20% OFF => 19
+    discountPercent: 0,
     category: "Class 10",
     subject: "Mathematics",
     board: "CBSE",
     language: "English",
-    isRecommended: false,
+    isRecommended: true,
     sampleImages: [],
     description:
       "Real Numbers chapter notes with key points, Euclid concepts, mind map, PYQ, and practice questions. Best for quick and complete chapter coverage."
@@ -134,13 +134,13 @@
     id: "math10_polynomials_all_in_one",
     name: "Class 10 Polynomials All-in-One Notes + PYQ",
     coverImage: "assets/images/p-math10-polynomials.png",
-    originalPrice: 27, // 30% OFF => 19
-    discountPercent: 30,
+    originalPrice: 0, // 30% OFF => 19
+    discountPercent: 0,
     category: "Class 10",
     subject: "Mathematics",
     board: "CBSE",
     language: "English",
-    isRecommended: false,
+    isRecommended: true,
     sampleImages: [],
     description:
       "Polynomials chapter simplified with zero tricks, identities, mind map, PYQ and practice sets for stronger concept understanding."
